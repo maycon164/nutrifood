@@ -5,4 +5,6 @@ async function getMenu() {
   return menu;
 }
 
-expo
+module.exports = {
+  getMenu,
+};
