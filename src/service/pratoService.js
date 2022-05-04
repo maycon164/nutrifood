@@ -7,21 +7,21 @@ async function getPratos(){
 }
 
 async function savePrato(prato){
-  const savedPrato = await Prato.create(prato);
-  return savedPrato;
+  const pratoSaved = await Prato.create(prato);
+  return pratoSaved;
 }
 
 async function updatePrato(idPrato, prato){
   const {nome, tipo, preco} = prato;
-  const updatedPrato = await Prato.findOne({where: {id: idPrato}});
+  const pratoUpdated = await Prato.findOne({where: {id: idPrato}});
   
-  updatedPrato.nome = nome;
-  updatedPrato.tipo = tipo;
-  updatedPrato.preco = preco;
+  pratoUpdated.nome = nome;
+  pratoUpdated.tipo = tipo;
+  pratoUpdated.preco = preco;
 
-  await updatedPrato.save();
+  await pratoUpdated.save();
 
-  return updatedPrato;
+  return pratoUpdated;
 }
 
 async function deletePrato(idPrato){
