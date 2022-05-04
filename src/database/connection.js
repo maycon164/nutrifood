@@ -1,19 +1,12 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize');
+const dbConfig = require('./dbConfig');
 
-function connection() {
-  mongoose
-    .connect(
-      'mongodb+srv://test:teste@clustereshop.oybxl.mongodb.net/nutrifood?retryWrites=true&w=majority',
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        dbName: 'nutrifood-database',
-      }
-    )
-    .then(() => {
-      console.log('Conectado ao mongoDB');
-    })
-    .catch((err) => console.error(err));
-}
+const connection = new Sequelize(dbConfig);
+
+/*
+connection.authenticate()
+.then(function(){console.log("Connection established")})
+.catch(function(error){console.log("Unable to connect: ", error)})
+*/
 
 module.exports = connection;
