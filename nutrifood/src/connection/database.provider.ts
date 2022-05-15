@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Lanche } from '../lanche/entities/lanche.entitie';
+import { Snack } from 'src/snack/entities/snack.entitie';
 
 export const databaseProviders = [
   {
@@ -17,8 +17,8 @@ export const databaseProviders = [
           underscored: true,
         },
       });
-      sequelize.addModels([Lanche]);
-      await sequelize.sync({ alter: true });
+      sequelize.addModels([Snack]);
+      await sequelize.sync();
       return sequelize;
     },
   },

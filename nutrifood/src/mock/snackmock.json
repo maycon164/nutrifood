@@ -1,0 +1,58 @@
+[
+    {
+        "name": "hamburguer",
+        "value": 12.99,
+        "category": "fastfood",
+        "status": "available",
+        "image": "http://localhost:3000/food.jpeg"
+    },
+    {
+        "name": "hot dog",
+        "value": 7.99,
+        "category": "fastfood",
+        "status": "available",
+        "image": "http://localhost:3000/food.jpeg"
+    },
+    {
+        "name": "bauru",
+        "value": 6.99,
+        "category": "fastfood",
+        "status": "available",
+        "image": "http://localhost:3000/food.jpeg"
+    },
+    {
+        "name": "beirute",
+        "value": 5.99,
+        "category": "fastfood",
+        "status": "available",
+        "image": "http://localhost:3000/food.jpeg"
+    },
+    {
+        "name": "salada mista",
+        "value": 12.99,
+        "category": "salada",
+        "status": "available",
+        "image": "http://localhost:3000/food.jpeg"
+    },
+    {
+        "name": "sorvete",
+        "value": 5.99,
+        "category": "sobremesa",
+        "status": "available",
+        "image": "http://localhost:3000/food.jpeg"
+    },
+    {
+        "name": "bolo de chocolate",
+        "value": 15.99,
+        "category": "sobremesa",
+        "status": "available",
+        "image": "http://localhost:3000/food.jpeg"
+    },
+    {
+        "name": "milkshake",
+        "value": 10.99,
+        "category": "sobremesa/bebida",
+        "status": "available",
+        "image": "http://localhost:3000/food.jpeg"
+    }
+]

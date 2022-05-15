@@ -26,6 +26,8 @@
     "@nestjs/platform-express": "^8.4.5",
     "@nestjs/serve-static": "^2.2.2",
     "@types/sequelize": "^4.28.13",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
     "mssql": "^8.1.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
