@@ -46,20 +46,16 @@ btnPedidosEl.addEventListener("click", () => {
 
 function loadPage(page){
     hideSections();
-
     if(!page.loaded){
-
         fetch(page.html).then(response => response.text())
         .then(html => {
-            page.section.innerHTML = html
+            page.section.innerHTML = html;
+            let script = document.createElement('script');
+            script.src = page.script;
+            document.body.appendChild(script);
+            page.loaded = true;
         })
-
-        let script = document.createElement('script');
-        script.src = page.script;
-        document.body.appendChild(script);
-        page.loaded = true;
     }
-
     page.section.style.display = "block"
 }
 
