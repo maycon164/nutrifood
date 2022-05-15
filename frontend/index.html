@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Menu</title>
+
+  <style>
+    .selected{
+      background-color:black;
+    }
+    .btn{
+      opacity: 0.8;
+      color: white;
+    }
+  </style>
 </head>
 <body>
     <!--HEADER-->
@@ -46,10 +56,9 @@
               <div class="hidden sm:block sm:ml-6">
                 <div class="flex space-x-4">
                   <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                  <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Cardápio</a>
-                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pedidos</a>
-    
+                  <a href="#" id="btn-home" class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn selected">Home</a>
+                  <a href="#" id="btn-cardapio" class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn">Cardapio</a>
+                  <a href="#" id="btn-pedidos" class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn">Pedidos</a>
                 </div>
             </div>
             </div>
@@ -72,49 +81,11 @@
         </div>
       </nav>
 <!--section de cardapio-->
-<section>
-    <div class="bg-white">
-        <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Nosso Cardápio</h2>
-          
-          <!--DROPDOWN-->
-          <button id="dropdownDefault" onclick="showDropDown()" data-dropdown-toggle="dropdown" 
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
-          type="button">Selecione<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-
-          <!-- Dropdown menu -->
-<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-<ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
-  <li>
-    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lanches</a>
-  </li>
-  <li>
-    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Massas</a>
-  </li>
-  <li>
-    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Saladas</a>
-  </li>
-  <li>
-    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Bebidas</a>
-  </li>
-  <li>
-    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sobremesas</a>
-  </li>
-</ul>
-</div>
-      
-          <div id="cont-pratos" class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+<section id="home-section" ></section>
+<section id="cardapio-section"></section>
+<section id="pedidos-section"></section>
 
 
-      
-            <!-- More products... -->
-          </div>
-        </div>
-
-
-      </div>
-
-</section>
 
 <!--FOOTER INFOS DA EMPRESA-->
     <div class="bg-gray-100 pt-5">
