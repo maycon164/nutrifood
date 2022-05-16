@@ -1,94 +1,72 @@
-const contPratoEl = document.getElementById("cont-pratos");
-const dropDownCategoryEl = document.getElementById("dropdown");
-
-//ao carregar a página
-window.onload = function(){
-    getPratos();
-}
-
-function getPratos(){
-    const pratos = [
+const pages = [
     {
-        "nome":"Batata",
-        "preco": 10,
-        "tipo": "lanche",
-        "status": "disponivel"
-    },
-
-    {
-        "nome":"Macarrão",
-        "preco": 6,
-        "tipo": "massa",
-        "status": "disponivel"
+        html: "../src/views/home.html",
+        script: "../src/controller/home.controller.js",
+        loaded: false,
+        section: document.getElementById("home-section")
     },
     {
-        "nome":"Hamburguer",
-        "preco": 15,
-        "tipo": "lanche",
-        "status": "disponivel"
+        html: "../src/views/cardapio.html",
+        script: "../src/controller/snacks.controller.js",
+        loaded: false,
+        section: document.getElementById("cardapio-section")
     },
     {
-        "nome":"Gelatina",
-        "tipo":"sobremesa",
-        "preco": 10,
-        "status": "disponivel"
-    },
-    {
-        "nome":"lasanha",
-        "preco": 10,
-        "tipo": "massa",
-        "status": "disponivel"
-    },
-
-    {
-        "nome":"Suco de Laranha",
-        "preco": 22.87,
-        "tipo": "bebida",
-        "status": "disponivel"
-    },
-    {
-        "nome":"Hot Dog",
-        "preco": 7.99,
-        "tipo": "lanche",
-        "status": "disponivel"
-    },
-    {
-        "nome":"Refrigerante",
-        "tipo":"bebida",
-        "preco": 6.99,
-        "status": "disponivel"
+        html: "../src/views/pedidos.html",
+        script: "../src/controller/pedidos.controller.js",
+        loaded: false,
+        section: document.getElementById("pedidos-section")
     }
-]
-    pratos.forEach(prato => {
-        let pratoElement = createElementPrato(prato);
-        contPratoEl.insertAdjacentHTML('beforeend', pratoElement);
-    });
+] 
+
+const buttonsHeader = Array.from(document.getElementsByClassName("btn"));
+const btnHomeEl = document.getElementById("btn-home");
+const btnCardapioEl = document.getElementById("btn-cardapio");
+const btnPedidosEl = document.getElementById("btn-pedidos");
+
+
+btnHomeEl.addEventListener("click", () => {
+    loadPage(pages[0]);
+    removeSelectionOfButtons();
+    btnHomeEl.classList.add("selected")
+});
+
+btnCardapioEl.addEventListener("click", () => {
+    loadPage(pages[1]);
+    removeSelectionOfButtons();
+    btnCardapioEl.classList.add("selected")
+});
+
+btnPedidosEl.addEventListener("click", () => {
+    loadPage(pages[2]);
+    removeSelectionOfButtons();
+    btnPedidosEl.classList.add("selected")
+});
+
+
+function loadPage(page){
+    hideSections();
+    if(!page.loaded){
+        fetch(page.html).then(response => response.text())
+        .then(html => {
+            page.section.innerHTML = html;
+            let script = document.createElement('script');
+            script.src = page.script;
+            document.body.appendChild(script);
+            page.loaded = true;
+        })
+    }
+    page.section.style.display = "block"
 }
 
-function createElementPrato({nome, tipo, preco}){
-    let pratoElement =  `                
-        <div class="group relative">
-            <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-            <img src="./src/images/no-available.png" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-        <div>
-            <h3 class="text-sm text-gray-700">
-            <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                ${nome}
-            </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">${tipo}</p>
-        </div>
-        <p class="text-sm font-medium text-gray-900">R$${preco}</p>
-        </div>
-    </div>
-  `;
-    return pratoElement;
+function hideSections(){
+    pages.forEach(page => {
+        page.section.style.display = 'none'
+    })
 }
 
-function showDropDown(){
-
-    dropDownCategoryEl.classList.toggle("hidden");
+function removeSelectionOfButtons(){
+    buttonsHeader.forEach(btn => {
+        btn.classList.remove("selected")
+    })
 }

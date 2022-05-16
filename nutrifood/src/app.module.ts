@@ -2,12 +2,15 @@ import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { DatabaseModule } from './connection/database.module';
-import { LancheModule } from './snack/snack.module';
-
+import { SnackModule } from './snack/snack.module';
+import { UserModule } from './users/user.module';
+import { OrderModule } from './orders/order.module';
 @Module({
   imports: [
     DatabaseModule,
-    LancheModule,
+    SnackModule,
+    UserModule,
+    OrderModule,
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'images') }),
   ],
   controllers: [],
