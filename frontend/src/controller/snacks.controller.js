@@ -15,7 +15,7 @@ selectCategoryEl.addEventListener("change", () => {
     getSnacks(categorySelected)
 });
 
-function createSnackElement({name, category, value, image}){
+function createSnackElement({id, name, category, value, image}){
     let ratingElement = createRatingElement();
     let snackElement =  `                
         <div class="group relative">
@@ -39,7 +39,7 @@ function createSnackElement({name, category, value, image}){
             ${ratingElement}
 
             <center class="relative mt-2">
-                <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-3 border border-blue-500 hover:border-transparent rounded">
+                <button onclick="realizarPedido(${id})" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-3 border border-blue-500 hover:border-transparent rounded">
                   Comprar Agora
                 </button>
             </center>
@@ -79,6 +79,10 @@ function createRatingElement(){
       </svg>
     </li>
   </ul>`
+}
+
+function realizarPedido(id){
+  alert("REALIZANDO UM NOVO PEDIDO!!!" + "do lanche com ID: " + id);
 }
 
 //auto invoked function
