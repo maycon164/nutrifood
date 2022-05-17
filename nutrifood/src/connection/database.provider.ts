@@ -26,7 +26,7 @@ export const databaseProviders = [
       Snack.hasMany(Order, { foreignKey: 'id_snack' });
       Order.belongsTo(Snack, { foreignKey: 'id_snack' });
 
-      await sequelize.sync();
+      await sequelize.sync({ force: true });
       return sequelize;
     },
   },

@@ -1,58 +1,65 @@
 [
     {
-        "name": "hamburguer",
+        "name": "Hamburguer",
         "value": 12.99,
         "category": "fastfood",
         "status": "available",
         "image": "http://localhost:3000/food.jpeg"
     },
     {
-        "name": "hot dog",
-        "value": 7.99,
-        "category": "fastfood",
-        "status": "available",
-        "image": "http://localhost:3000/food.jpeg"
-    },
-    {
-        "name": "bauru",
-        "value": 6.99,
-        "category": "fastfood",
-        "status": "available",
-        "image": "http://localhost:3000/food.jpeg"
-    },
-    {
-        "name": "beirute",
-        "value": 5.99,
-        "category": "fastfood",
-        "status": "available",
-        "image": "http://localhost:3000/food.jpeg"
-    },
-    {
-        "name": "salada mista",
-        "value": 12.99,
-        "category": "salada",
-        "status": "available",
-        "image": "http://localhost:3000/food.jpeg"
-    },
-    {
-        "name": "sorvete",
-        "value": 5.99,
-        "category": "sobremesa",
-        "status": "available",
-        "image": "http://localhost:3000/food.jpeg"
-    },
-    {
-        "name": "bolo de chocolate",
+        "name": "Bolo",
         "value": 15.99,
-        "category": "sobremesa",
+        "category": "dessert",
         "status": "available",
-        "image": "http://localhost:3000/food.jpeg"
+        "image": "http://localhost:3000/bolo.jpeg"
     },
     {
-        "name": "milkshake",
+        "name": "Hot Dog",
         "value": 10.99,
-        "category": "sobremesa/bebida",
+        "category": "fastfood",
         "status": "available",
-        "image": "http://localhost:3000/food.jpeg"
-    }
+        "image": "http://localhost:3000/hotdog.jpeg"
+    },
+    {
+        "name": "Milkshake",
+        "value": 9.99,
+        "category": "dessert",
+        "status": "available",
+        "image": "http://localhost:3000/milkshake.jpeg"
+    },
+    {
+        "name": "Torta de Morango",
+        "value": 22.99,
+        "category": "fastfood",
+        "status": "available",
+        "image": "http://localhost:3000/torta.jpeg"
+    },
+    {
+        "name": "Sorvete 4 bolas",
+        "value": 12.69,
+        "category": "dessert",
+        "status": "available",
+        "image": "http://localhost:3000/sorvete.jpeg"
+    },
+    {
+        "name": "Trancoso, do G&T Bar",
+        "value": 6.69,
+        "category": "drinks",
+        "status": "available",
+        "image": "http://localhost:3000/trancoso.webp"
+    },
+    {
+        "name": "Santa Rosa Tavares",
+        "value": 9.69,
+        "category": "drinks",
+        "status": "available",
+        "image": "http://localhost:3000/rosatavares.webp"
+    },
+    {
+        "name": "Salada Mista",
+        "value": 11.69,
+        "category": "drinks",
+        "status": "available",
+        "image": "http://localhost:3000/saladamista.jpeg"
+    }      
 ]

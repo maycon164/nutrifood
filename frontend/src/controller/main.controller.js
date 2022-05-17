@@ -52,10 +52,17 @@ btnPedidosEl.addEventListener("click", () => {
 
 async function loadOrderConfirmationPage(id){
     loadPage(pages[3]);
-    const order = await getSnack(id);
-    fillOrderConfirmationPage(order)
+    await setSnackSelected(id);
+    fillOrderConfirmationPage();
 }
 
+async function setSnackSelected(id){
+    this.snackSelected = await getSnack(id);
+}
+
+function getSnackSelected(){
+    return this.snackSelected;
+}
 
 
 function loadPage(page){
