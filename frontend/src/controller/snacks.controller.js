@@ -39,7 +39,7 @@ function createSnackElement({id, name, category, value, image}){
             ${ratingElement}
 
             <center class="relative mt-2">
-                <button onclick="realizarPedido(${id})" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-3 border border-blue-500 hover:border-transparent rounded">
+                <button onclick="loadOrderConfirmationPage(${id})" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-3 border border-blue-500 hover:border-transparent rounded">
                   Comprar Agora
                 </button>
             </center>

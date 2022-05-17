@@ -13,11 +13,18 @@ const pages = [
     },
     {
         html: "../src/views/pedidos.html",
-        script: "../src/controller/pedidos.controller.js",
+        script: "../src/controller/order.controller.js",
         loaded: false,
         section: document.getElementById("pedidos-section")
-    }
-] 
+    },
+    {
+        html: "../src/views/confirmarPedido.html",
+        script: "../src/controller/confirmorder.controller.js",
+        loaded: false,
+        section: document.getElementById("confirmar-pedido-section")
+    },
+
+]
 
 const buttonsHeader = Array.from(document.getElementsByClassName("btn"));
 const btnHomeEl = document.getElementById("btn-home");
@@ -43,6 +50,13 @@ btnPedidosEl.addEventListener("click", () => {
     btnPedidosEl.classList.add("selected")
 });
 
+async function loadOrderConfirmationPage(id){
+    loadPage(pages[3]);
+    const order = await getSnack(id);
+    fillOrderConfirmationPage(order)
+}
+
+
 
 function loadPage(page){
     hideSections();
@@ -50,9 +64,11 @@ function loadPage(page){
         fetch(page.html).then(response => response.text())
         .then(html => {
             page.section.innerHTML = html;
-            let script = document.createElement('script');
-            script.src = page.script;
-            document.body.appendChild(script);
+            if(page.script){
+                let script = document.createElement('script');
+                script.src = page.script;
+                document.body.appendChild(script);
+            }
             page.loaded = true;
         })
     }
