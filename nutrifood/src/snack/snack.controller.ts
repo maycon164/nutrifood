@@ -31,25 +31,32 @@ export class SnackController {
   constructor(private readonly service: SnackService) {}
 
   @Post()
-  insertLanche(@Body() snack: Snack): Promise<Snack> {
+  insertSnack(@Body() snack: Snack): Promise<Snack> {
     return this.service.insertSnack(snack);
   }
 
   @Get()
-  getAllLanches(): Promise<Snack[]> {
+  getAllSnacks(): Promise<Snack[]> {
     return this.service.getAllSnacks();
   }
 
   @Get('/:category')
-  getAllLanchesByCategory(
+  getAllSnacksByCategory(
     @Param('category') category: string,
   ): Promise<Snack[]> {
     return this.service.getSnacksByCategory(category);
   }
 
+  @Get('/snack/:id')
+  async getSnackById(@Param('id') id: number) {
+    console.log('teste');
+    const snack = await this.service.getSnackById(id);
+    return snack;
+  }
+
   @Put('/:id')
   @HttpCode(200)
-  async updateLanche(@Param('id') id: number, @Body() snack: Snack) {
+  async updateSnack(@Param('id') id: number, @Body() snack: Snack) {
     const rowsAffected = await this.service.updateSnack(id, snack);
     if (rowsAffected[0] > 0) {
       return { message: 'successfully updated' };
@@ -59,7 +66,7 @@ export class SnackController {
 
   @Delete('/:id')
   @HttpCode(200)
-  async deleteLanche(@Param('id') id: number) {
+  async deleteSnack(@Param('id') id: number) {
     const rowsAffected = await this.service.deleteSnack(id);
     if (rowsAffected > 0) {
       return { message: 'successfully deleted' };

@@ -21,6 +21,12 @@ export class SnackService {
     return this.snackRepository.findAll({ where: { category: category } });
   }
 
+  async getSnackById(id: number) {
+    const snack = await this.snackRepository.findByPk(id);
+    console.log(snack);
+    return snack;
+  }
+
   async getAllSnacks() {
     return this.snackRepository.findAll();
   }
