@@ -30,11 +30,6 @@ const storage = {
 export class SnackController {
   constructor(private readonly service: SnackService) {}
 
-  @Post()
-  insertSnack(@Body() snack: Snack): Promise<Snack> {
-    return this.service.insertSnack(snack);
-  }
-
   @Get()
   getAllSnacks(): Promise<Snack[]> {
     return this.service.getAllSnacks();
@@ -74,9 +69,11 @@ export class SnackController {
     return { message: 'could not delete' };
   }
 
-  @Post('/image')
+  @Post('')
   @UseInterceptors(FileInterceptor('file', storage))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
+  uploadFile(@UploadedFile() file, @Body() snack: Snack) {
+    const snackData = snack;
+    snackData.image = `http://localhost:3000/${file.filename}`;
+    return this.service.insertSnack(snackData);
   }
 }

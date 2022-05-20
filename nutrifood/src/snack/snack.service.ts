@@ -23,7 +23,6 @@ export class SnackService {
 
   async getSnackById(id: number) {
     const snack = await this.snackRepository.findByPk(id);
-    console.log(snack);
     return snack;
   }
 

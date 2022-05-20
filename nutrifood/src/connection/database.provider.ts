@@ -8,16 +8,8 @@ export const databaseProviders = [
     provide: 'SEQUELIZE',
     useFactory: async () => {
       const sequelize = new Sequelize({
-        dialect: 'mssql',
-        host: 'localhost',
-        port: 1433,
-        username: 'SA',
-        password: 'Maycon@123',
-        database: 'nutrifood',
-        define: {
-          timestamps: true,
-          underscored: true,
-        },
+        dialect: 'sqlite',
+        storage: '../nutrifood-db',
       });
       sequelize.addModels([Snack, User, Order]);
 
@@ -26,7 +18,7 @@ export const databaseProviders = [
       Snack.hasMany(Order, { foreignKey: 'id_snack' });
       Order.belongsTo(Snack, { foreignKey: 'id_snack' });
 
-      await sequelize.sync({ force: true });
+      await sequelize.sync();
       return sequelize;
     },
   },
