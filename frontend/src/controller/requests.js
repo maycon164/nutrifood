@@ -22,13 +22,19 @@ async function makeAOrder(orderObject){
     })
 }
 
-
 async function deleteSnack(id){
     return await fetch(`http://localhost:3000/snack/${id}`, {
         method: 'DELETE'
     }).then(response => response.text());
 }
+
 async function updateSnack(id){
-    alert(`TODO UPDATE ${id}`)
-    
+    alert(`TODO UPDATE ${id}`)    
+}
+
+async function insertNewSnackRequest(snack){
+    return await fetch("http://localhost:3000/snack", {
+        method: "POST",
+        body: snack
+    }).then(response => response.json());
 }

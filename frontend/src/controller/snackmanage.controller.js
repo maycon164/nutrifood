@@ -1,6 +1,13 @@
 const listOfSnacksManageEl = document.getElementById("list-of-snack-manage");
 const inputImageSnackFormEl = document.getElementById("input-image-snack-form");
 const snackImagePreview = document.getElementById("snack-image-preview");
+const btnShowFormSnack = document.getElementById("show-form-snack");
+const btnCancelFormNewSnack = document.getElementById("btn-cancel-snack");
+const formNewSnackSection = document.getElementById("form-new-snack-section");
+const tableSnacksSection = document.getElementById("table-snacks-section");
+const formSnackEl = document.getElementById("form-snack");
+const btnInsertNewSnackEl = document.getElementById("btn-insert-snack");
+
 
 async function fillTableSnackManage(){
     const snacks = await getAllSnacks();
@@ -69,6 +76,37 @@ async function confirmDelete(id){
         alert(result.message)
     }
 }
+
+btnShowFormSnack.addEventListener("click", (event) => {
+    formNewSnackSection.classList.remove("hidden");
+    tableSnacksSection.classList.add("hidden");
+});
+
+btnCancelFormNewSnack.addEventListener("click", (event) => {
+    tableSnacksSection.classList.remove("hidden");
+    formNewSnackSection.classList.add("hidden");
+});
+
+btnInsertNewSnackEl.addEventListener("click", (event) => {
+    event.preventDefault();
+    insertNewSnack();
+});
+
+async function insertNewSnack(){
+    const formData = new FormData(formSnackEl);
+    formData.set("status", "available");
+
+    const snackSaved = await insertNewSnackRequest(formData);
+    if(snackSaved){
+        alert("inserido com sucesso!!!");
+        btnCancelFormNewSnack.click();
+        fillTableSnackManage();
+        getSnacks();
+    }else{
+        alert("não foi possivel inserir!!!");
+    }
+}
+
 
 (() => {
     fillTableSnackManage();
