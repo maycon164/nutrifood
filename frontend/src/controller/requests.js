@@ -21,3 +21,14 @@ async function makeAOrder(orderObject){
         body: JSON.stringify(orderObject) 
     })
 }
+
+
+async function deleteSnack(id){
+    return await fetch(`http://localhost:3000/snack/${id}`, {
+        method: 'DELETE'
+    }).then(response => response.text());
+}
+async function updateSnack(id){
+    alert(`TODO UPDATE ${id}`)
+    
+}

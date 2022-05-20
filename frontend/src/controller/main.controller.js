@@ -23,6 +23,12 @@ const pages = [
         loaded: false,
         section: document.getElementById("confirmar-pedido-section")
     },
+    {
+        html: "../src/views/snackManage.html",
+        script: "../src/controller/snackmanage.controller.js",
+        loaded: false,
+        section: document.getElementById("snack-manage-section")
+    }
 
 ]
 
@@ -30,6 +36,7 @@ const buttonsHeader = Array.from(document.getElementsByClassName("btn"));
 const btnHomeEl = document.getElementById("btn-home");
 const btnCardapioEl = document.getElementById("btn-cardapio");
 const btnPedidosEl = document.getElementById("btn-pedidos");
+const btnSnackManageEl = document.getElementById("btn-snack-manage");
 
 
 btnHomeEl.addEventListener("click", () => {
@@ -55,6 +62,12 @@ async function loadOrderConfirmationPage(id){
     await setSnackSelected(id);
     fillOrderConfirmationPage();
 }
+
+btnSnackManageEl.addEventListener("click", () => {
+    loadPage(pages[4]);
+    removeSelectionOfButtons();
+    btnSnackManageEl.classList.add("selected");
+});
 
 async function setSnackSelected(id){
     this.snackSelected = await getSnack(id);
