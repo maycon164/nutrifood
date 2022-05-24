@@ -1,6 +1,4 @@
 const btnConfirmOrderModalEl = document.getElementById("btn-confirm-order");
-const modalConfirmOrderEl = document.getElementById("confirm-order-modal");
-const btnCloseConfirmOrderModalEl = document.getElementById("btn-close-modal")
 const btnCancelOrderEl = document.getElementById("btn-cancel-order");
 
 const inputNameSnackEl = document.getElementById("input-name-snack");
@@ -12,21 +10,23 @@ const selectPaymentEl = document.getElementById("select-payment")
 
 btnConfirmOrderModalEl.addEventListener("click", (event) => {
     event.preventDefault();
-    modalConfirmOrderEl.classList.remove("hidden");
 
-    let orderObject = getFromForm();
-    console.log(orderObject);
+    showModal({
+        title: "Lanche: Nome do Lanche", 
+        message: "Agora é só esperar o seu lanche chegar",
+        icon: "🛵",
+        fn: () => {
+            btnPedidosEl.click();
+            loadOrders();
+        }
+    });
+
+    let orderObject = getOrderFromForm();
     makeAOrder(orderObject);
 });
 
 inputQuantityEl.addEventListener("change", () => {
     inputValueSnackEl.value = (getSnackSelected().value * inputQuantityEl.value);
-})
-
-btnCloseConfirmOrderModalEl.addEventListener("click", () => {
-    
-    modalConfirmOrderEl.classList.add("hidden")
-    btnPedidosEl.click();
 })
 
 btnCancelOrderEl.addEventListener("click", () => {
@@ -42,7 +42,7 @@ function fillOrderConfirmationPage(){
     inputValueSnackEl.value = snack.value;
 }
 
-function getFromForm(){
+function getOrderFromForm(){
     let orderObject = {};
     
     orderObject.id_user = 1;

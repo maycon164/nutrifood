@@ -1,15 +1,11 @@
 const listOfOrdersEl = document.getElementById("list-of-orders")
 
 async function loadOrders(){
-    listOfOrdersEl.innerText = "";
-
     const orders = await getAllOrders();
-   
+    listOfOrdersEl.innerText = "";
     orders.forEach(order => {
-
         const orderElement = createOrderView(order);
         listOfOrdersEl.insertAdjacentHTML("afterbegin", orderElement);
-   
     });
 }
 

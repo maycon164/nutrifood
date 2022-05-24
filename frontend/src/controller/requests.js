@@ -25,7 +25,9 @@ async function makeAOrder(orderObject){
 async function deleteSnack(id){
     return await fetch(`http://localhost:3000/snack/${id}`, {
         method: 'DELETE'
-    }).then(response => response.text());
+    })
+    .then(response => response.json())
+    .then(json => json.message)
 }
 
 async function updateSnack(id){

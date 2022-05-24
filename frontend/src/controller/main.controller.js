@@ -106,3 +106,21 @@ function removeSelectionOfButtons(){
         btn.classList.remove("selected")
     })
 }
+
+const modalEl = document.getElementById('modal'); 
+
+function showModal({title, message, icon, fn}){
+  modalEl.classList.remove("hidden");
+  document.getElementById("modal-title").innerText = title;
+  document.getElementById("modal-message").innerText = message;
+  document.getElementById("modal-icon").innerText = icon
+
+  document.getElementById('close-modal')
+  .replaceWith(document.getElementById('close-modal').cloneNode(true));
+
+  document.getElementById('close-modal').addEventListener("click", () => {
+    fn();
+    modalEl.classList.add("hidden");
+  });
+}
+

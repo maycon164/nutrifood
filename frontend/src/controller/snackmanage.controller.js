@@ -13,7 +13,6 @@ async function fillTableSnackManage(){
     const snacks = await getAllSnacks();
     listOfSnacksManageEl.innerText = "";
     snacks.forEach(snack => {
-        console.log(snack);
         const snackRow = createRowSnackManage(snack);
         listOfSnacksManageEl.insertAdjacentHTML("beforeend", snackRow);
     });
@@ -71,10 +70,15 @@ function createRowSnackManage(snack) {
 }
 
 async function confirmDelete(id){
-    const result = await deleteSnack(id);
-    if(result){
-        alert(result.message)
-    }
+    const message = await deleteSnack(id);
+    showModal({
+    title: "Delete A Snack", 
+    message, 
+    icon: "[X - DELETE]", 
+    fn: () => {
+        fillTableSnackManage();
+    }});
+
 }
 
 btnShowFormSnack.addEventListener("click", (event) => {
@@ -98,10 +102,12 @@ async function insertNewSnack(){
 
     const snackSaved = await insertNewSnackRequest(formData);
     if(snackSaved){
-        alert("inserido com sucesso!!!");
-        btnCancelFormNewSnack.click();
+        console.log(snackSaved);
+        snackImagePreview.src = "";
+        
+        formSnackEl.reset();
         fillTableSnackManage();
-        getSnacks();
+        //fillListOfSnacks();
     }else{
         alert("não foi possivel inserir!!!");
     }
