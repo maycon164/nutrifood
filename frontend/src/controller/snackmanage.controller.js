@@ -102,12 +102,19 @@ async function insertNewSnack(){
 
     const snackSaved = await insertNewSnackRequest(formData);
     if(snackSaved){
-        console.log(snackSaved);
-        snackImagePreview.src = "";
-        
-        formSnackEl.reset();
-        fillTableSnackManage();
-        //fillListOfSnacks();
+        showModal({
+            title: 'Insert new snack',
+            message: "Inserted sucessfully",
+            icon: "[ I - INSERTED]",
+            fn: () => {
+                snackImagePreview.src = "";
+                formSnackEl.reset();
+                fillTableSnackManage();
+                fillListOfSnacks();
+                btnCancelFormNewSnack.click();
+            }
+        })
+
     }else{
         alert("não foi possivel inserir!!!");
     }
