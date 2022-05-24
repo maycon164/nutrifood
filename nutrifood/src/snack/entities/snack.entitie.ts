@@ -1,6 +1,5 @@
 import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 import { Table, Column, Model } from 'sequelize-typescript';
-import { compileFunction } from 'vm';
 
 @Table
 export class Snack extends Model {

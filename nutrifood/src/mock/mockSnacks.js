@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const Sequelize = require('sequelize');
 const { DataTypes } = Sequelize;
-const snacksmock = require('./snackmock.json');
+const snacksmock = require('./snackmock');
 
 const connection = new Sequelize({
   dialect: 'mssql',
