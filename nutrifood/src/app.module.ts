@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -7,6 +8,7 @@ import { UserModule } from './users/user.module';
 import { OrderModule } from './orders/order.module';
 @Module({
   imports: [
+    AuthModule,
     DatabaseModule,
     SnackModule,
     UserModule,
@@ -16,4 +18,4 @@ import { OrderModule } from './orders/order.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

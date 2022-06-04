@@ -7,7 +7,7 @@ export class UserService {
   constructor(
     @Inject('USER_REPOSITORY')
     private readonly userRepository: typeof User,
-  ) {}
+  ) { }
 
   async insertUser(user) {
     const snackSaved = await this.userRepository.create(user);
@@ -26,5 +26,12 @@ export class UserService {
     });
 
     return userAndOrders;
+  }
+
+  async findOneByEmail(email: string): Promise<User> {
+
+    const user = this.userRepository.findOne({ where: { email: email } });
+    return user;
+
   }
 }

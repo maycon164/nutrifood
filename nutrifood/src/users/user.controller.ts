@@ -1,10 +1,16 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards, Request } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { User } from './entities/user.entitie';
 import { UserService } from './user.service';
 
+interface UserLogin {
+  email: string,
+  password: string
+}
+
 @Controller('users')
 export class UserController {
-  constructor(private readonly service: UserService) {}
+  constructor(private readonly service: UserService) { }
 
   @Get()
   async getAllUsers() {
@@ -21,8 +27,9 @@ export class UserController {
     return this.service.insertUser(user);
   }
 
+  @UseGuards(AuthGuard('local'))
   @Post('/login')
-  async login(@Body() userlogin: { email: string; password: string }) {
-    return { message: 'not implemented!!!' };
+  async login(@Request() req) {
+    return req.user;
   }
 }

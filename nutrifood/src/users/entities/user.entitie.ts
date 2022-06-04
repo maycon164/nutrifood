@@ -12,6 +12,10 @@ export class User extends Model {
   @Column
   email: string;
 
+  @IsNotEmpty()
+  @Column
+  password: string;
+
   @Column
   address: string;
 
