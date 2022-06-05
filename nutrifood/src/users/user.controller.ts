@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards, Request } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from 'src/auth/auth.service';
 import { User } from './entities/user.entitie';
 import { UserService } from './user.service';
 
@@ -10,7 +10,9 @@ interface UserLogin {
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly service: UserService) { }
+  constructor(
+    private readonly service: UserService,
+  ) { }
 
   @Get()
   async getAllUsers() {
@@ -27,9 +29,4 @@ export class UserController {
     return this.service.insertUser(user);
   }
 
-  @UseGuards(AuthGuard('local'))
-  @Post('/login')
-  async login(@Request() req) {
-    return req.user;
-  }
 }

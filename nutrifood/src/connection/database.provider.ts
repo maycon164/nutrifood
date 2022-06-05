@@ -19,9 +19,9 @@ export const databaseProviders = [
       Snack.hasMany(Order, { foreignKey: 'id_snack' });
       Order.belongsTo(Snack, { foreignKey: 'id_snack' });
 
-      await sequelize.sync({ force: true });
+      await sequelize.sync({});
 
-      await User.create({
+      /*await User.create({
         name: 'Maycon',
         email: 'maycon@gmail.com',
         address: 'Rua Dos X',
@@ -30,7 +30,7 @@ export const databaseProviders = [
 
       snackmock.forEach(async (snack) => {
         await Snack.create(snack);
-      });
+      });*/
 
       return sequelize;
     },

@@ -8,8 +8,8 @@ import { UserModule } from './users/user.module';
 import { OrderModule } from './orders/order.module';
 @Module({
   imports: [
-    AuthModule,
     DatabaseModule,
+    AuthModule,
     SnackModule,
     UserModule,
     OrderModule,
