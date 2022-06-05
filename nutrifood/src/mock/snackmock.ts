@@ -30,7 +30,7 @@ export default [
   {
     name: 'Torta de Morango',
     value: 22.99,
-    category: 'fastfood',
+    category: 'dessert',
     status: 'available',
     image: 'http://localhost:3000/torta.jpeg',
   },
@@ -58,8 +58,22 @@ export default [
   {
     name: 'Salada Mista',
     value: 11.69,
-    category: 'drinks',
+    category: 'salads',
     status: 'available',
     image: 'http://localhost:3000/saladamista.jpeg',
   },
+  {
+    name: 'Gelatina Colorida',
+    value: 12.99,
+    category: 'dessert',
+    status: 'available',
+    image: 'http://localhost:3000/gelatinacolorida.webp',
+  },
+  {
+    name: 'Salada de Frutas',
+    value: 7.99,
+    category: 'dessert',
+    status: 'available',
+    image: 'http://localhost:3000/saladafruta.webp',
+  }
 ];

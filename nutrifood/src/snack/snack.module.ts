@@ -7,4 +7,4 @@ import { snackProvider } from './entities/snack.provider';
   controllers: [SnackController],
   providers: [SnackService, ...snackProvider],
 })
-export class SnackModule {}
+export class SnackModule { }

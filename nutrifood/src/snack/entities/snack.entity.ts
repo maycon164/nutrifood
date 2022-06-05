@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, isNotEmpty, isString } from 'class-validator';
 import { Table, Column, Model } from 'sequelize-typescript';
 
 @Table
@@ -9,13 +9,16 @@ export class Snack extends Model {
   name: string;
 
   @IsNotEmpty()
-  @IsNumber()
   @Column
   value: number;
 
+  @IsNotEmpty()
+  @IsString()
   @Column
   category: string;
 
+  @IsNotEmpty()
+  @IsString()
   @Column
   status: string;
 

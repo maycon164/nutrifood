@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Order } from 'src/orders/entities/order.entitie';
-import { Snack } from 'src/snack/entities/snack.entitie';
+import { Order } from 'src/orders/entities/order.entity';
+import { Snack } from 'src/snack/entities/snack.entity';
 import { User } from 'src/users/entities/user.entity';
 import snackmock from '../mock/snackmock';
 
@@ -19,9 +19,9 @@ export const databaseProviders = [
       Snack.hasMany(Order, { foreignKey: 'id_snack' });
       Order.belongsTo(Snack, { foreignKey: 'id_snack' });
 
-      await sequelize.sync({ force: true });
+      await sequelize.sync();
 
-      await User.create({
+      /*await User.create({
         name: 'Maycon',
         email: 'maycon@gmail.com',
         password: 'senha123',
@@ -32,7 +32,7 @@ export const databaseProviders = [
 
       snackmock.forEach(async (snack) => {
         await Snack.create(snack);
-      });
+      });*/
 
       return sequelize;
     },

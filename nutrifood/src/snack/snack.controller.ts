@@ -9,11 +9,17 @@ import {
   UploadedFile,
   UseInterceptors,
   HttpCode,
+  UseGuards,
+  Request,
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-import { Snack } from './entities/snack.entitie';
+import { Snack } from './entities/snack.entity';
 import { SnackService } from './snack.service';
 
 const storage = {
@@ -28,7 +34,7 @@ const storage = {
 
 @Controller('snack')
 export class SnackController {
-  constructor(private readonly service: SnackService) {}
+  constructor(private readonly service: SnackService) { }
 
   @Get()
   getAllSnacks(): Promise<Snack[]> {
@@ -49,6 +55,9 @@ export class SnackController {
     return snack;
   }
 
+  @UseGuards(AdminGuard)
+  @UseGuards(JwtAuthGuard)
+  @UsePipes(ValidationPipe)
   @Put('/:id')
   @HttpCode(200)
   async updateSnack(@Param('id') id: number, @Body() snack: Snack) {
@@ -59,6 +68,8 @@ export class SnackController {
     return { message: 'could not update' };
   }
 
+  @UseGuards(AdminGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   @HttpCode(200)
   async deleteSnack(@Param('id') id: number) {
@@ -69,11 +80,18 @@ export class SnackController {
     return { message: 'could not delete' };
   }
 
+  @UseGuards(AdminGuard)
+  @UseGuards(JwtAuthGuard)
+  @UsePipes(ValidationPipe)
   @Post('')
   @UseInterceptors(FileInterceptor('file', storage))
-  uploadFile(@UploadedFile() file, @Body() snack: Snack) {
+  insertSnack(@UploadedFile() file, @Body() snack: Snack) {
+
     const snackData = snack;
     snackData.image = `http://localhost:3000/${file.filename}`;
     return this.service.insertSnack(snackData);
+
   }
+
 }
+
