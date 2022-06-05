@@ -17,6 +17,9 @@ export class User extends Model {
   password: string;
 
   @Column
+  isAdmin: boolean
+
+  @Column
   address: string;
 
   @Column

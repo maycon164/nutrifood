@@ -6,6 +6,7 @@ import { DatabaseModule } from './connection/database.module';
 import { SnackModule } from './snack/snack.module';
 import { UserModule } from './users/user.module';
 import { OrderModule } from './orders/order.module';
+
 @Module({
   imports: [
     DatabaseModule,
@@ -18,4 +19,5 @@ import { OrderModule } from './orders/order.module';
   controllers: [],
   providers: [],
 })
+
 export class AppModule { }

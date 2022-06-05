@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards, Request } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-import { User } from './entities/user.entitie';
+import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 interface UserLogin {
