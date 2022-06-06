@@ -89,8 +89,10 @@ export class SnackController {
 
     const snackData = snack;
     snackData.image = `http://localhost:3000/${file.filename}`;
-    return this.service.insertSnack(snackData);
-
+    const snackInserted = this.service.insertSnack(snackData);
+    if (snackInserted) {
+      return { message: "sucessfully inserted" }
+    }
   }
 
 }
