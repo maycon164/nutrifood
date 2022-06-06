@@ -24,7 +24,7 @@ async function getSnack(id) {
 }
 
 async function makeLogin(loginObject) {
-    return await fetch(`http://localhost:3000/auth/login`, {
+    const objResponse = await fetch(`http://localhost:3000/auth/login`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -33,7 +33,12 @@ async function makeLogin(loginObject) {
         body: JSON.stringify(loginObject)
     })
         .then(response => response.json())
-        .then(obj => obj.access_token)
+
+    if (objResponse.username) {
+        return objResponse;
+    }
+
+    return null;
 }
 
 
@@ -51,7 +56,10 @@ async function makeAOrder(orderObject) {
 
 async function deleteSnack(id) {
     return await fetch(`http://localhost:3000/snack/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            "Authorization": `Bearer ${getTokenAccess()}`
+        }
     })
         .then(response => response.json())
         .then(json => json.message)
@@ -64,8 +72,12 @@ async function updateSnack(id) {
 async function insertNewSnackRequest(snack) {
     return await fetch("http://localhost:3000/snack", {
         method: "POST",
+        headers: {
+            "Authorization": `Bearer ${getTokenAccess()}`
+        },
         body: snack
-    }).then(response => response.json());
+    }).then(response => response.json())
+        .then(json => json.message);
 }
 
 function setTokenAccess(token) {
@@ -75,6 +87,20 @@ function setTokenAccess(token) {
 function getTokenAccess() {
     const token = localStorage.getItem("token");
     return token;
+}
+
+function setUsername(username) {
+    localStorage.setItem("name", username);
+}
+function getUsername() {
+    return localStorage.getItem("name");
+}
+
+function setIsAdmin(isAdmin) {
+    localStorage.setItem("isAdmin", isAdmin);
+}
+function getIsAdmin() {
+    return (localStorage.getItem("isAdmin") == 'true') ? true : false;
 }
 
 function logout() {

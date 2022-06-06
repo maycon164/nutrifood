@@ -9,7 +9,7 @@ const formSnackEl = document.getElementById("form-snack");
 const btnInsertNewSnackEl = document.getElementById("btn-insert-snack");
 
 
-async function fillTableSnackManage(){
+async function fillTableSnackManage() {
     const snacks = await getAllSnacks();
     listOfSnacksManageEl.innerText = "";
     snacks.forEach(snack => {
@@ -19,10 +19,10 @@ async function fillTableSnackManage(){
 }
 
 inputImageSnackFormEl.addEventListener("change", () => {
-    
-    if(inputImageSnackFormEl.files && inputImageSnackFormEl.files[0]){
+
+    if (inputImageSnackFormEl.files && inputImageSnackFormEl.files[0]) {
         const imageReader = new FileReader();
-        
+
         imageReader.onload = (image) => {
             snackImagePreview.src = image.target.result
         }
@@ -69,15 +69,17 @@ function createRowSnackManage(snack) {
     return rowElement;
 }
 
-async function confirmDelete(id){
+async function confirmDelete(id) {
     const message = await deleteSnack(id);
     showModal({
-    title: "Delete A Snack", 
-    message, 
-    icon: "[X - DELETE]", 
-    fn: () => {
-        fillTableSnackManage();
-    }});
+        title: "Delete A Snack",
+        message,
+        icon: "[X - DELETE]",
+        fn: () => {
+            fillTableSnackManage();
+            fillListOfSnacks();
+        }
+    });
 
 }
 
@@ -96,15 +98,15 @@ btnInsertNewSnackEl.addEventListener("click", (event) => {
     insertNewSnack();
 });
 
-async function insertNewSnack(){
+async function insertNewSnack() {
     const formData = new FormData(formSnackEl);
     formData.set("status", "available");
 
-    const snackSaved = await insertNewSnackRequest(formData);
-    if(snackSaved){
+    const message = await insertNewSnackRequest(formData);
+    if (message) {
         showModal({
             title: 'Insert new snack',
-            message: "Inserted sucessfully",
+            message,
             icon: "[ I - INSERTED]",
             fn: () => {
                 snackImagePreview.src = "";
@@ -115,7 +117,7 @@ async function insertNewSnack(){
             }
         })
 
-    }else{
+    } else {
         alert("não foi possivel inserir!!!");
     }
 }

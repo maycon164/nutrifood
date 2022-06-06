@@ -18,6 +18,12 @@
       opacity: 0.8;
       color: white;
     }
+
+    .cont-login-options {
+      position: absolute;
+      margin-top: 5px;
+      right: 10px;
+    }
   </style>
 </head>
 
@@ -72,12 +78,16 @@
               <a href="#" id="btn-pedidos"
                 class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn">Pedidos</a>
               <a href="#" id="btn-snack-manage"
-                class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn">Gerencias
+                class="hidden hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn">Gerencias
                 Lanches</a>
-              <a href="#" id="btn-login"
-                class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn">Login</a>
-              <a href="#" id="btn-logout"
-                class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn">Logout</a>
+
+              <div class="cont-login-options">
+                <a href="#" id="btn-login"
+                  class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn">Login</a>
+                <a href="#" id="btn-logout"
+                  class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium btn">Logout</a>
+              </div>
+
             </div>
           </div>
         </div>

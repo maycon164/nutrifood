@@ -11,16 +11,27 @@ btnMakeLoginEl.addEventListener("click", async () => {
         alert('email ou senha estao vazios');
     } else {
 
-        const accessToken = await makeLogin(
+        const objAccessToken = await makeLogin(
             {
                 username: email,
                 password: password
             });
 
-        if (accessToken) {
-            setTokenAccess(accessToken)
+        if (objAccessToken) {
+            setTokenAccess(objAccessToken.access_token)
+            setUsername(objAccessToken.username)
+            setIsAdmin(objAccessToken.isAdmin)
             // preciso atualizar tudo orders, snacks
             window.location.reload();
+        } else {
+            showModal({
+                title: "Login Failed",
+                message: "check your email and your password",
+                icon: "👁️👄👁️",
+                fn: () => {
+                    console.log("funcionou")
+                }
+            })
         }
 
     }

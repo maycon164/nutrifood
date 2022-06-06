@@ -50,8 +50,15 @@ function verifyIfIsLoggedIn() {
     if (getTokenAccess()) {
         const p = document.createElement("p");
         p.style.color = "white";
-        p.textContent = "VOCE ESTA LOGADO !!!";
+        p.style.display = "inline"
+        p.textContent = `Logado como ${getUsername()}`
         btnLoginEl.replaceWith(p);
+
+        console.log(getIsAdmin());
+
+        if (getIsAdmin()) {
+            btnSnackManageEl.classList.remove("hidden")
+        }
     }
 
 }
