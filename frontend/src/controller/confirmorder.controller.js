@@ -12,7 +12,7 @@ btnConfirmOrderModalEl.addEventListener("click", (event) => {
     event.preventDefault();
 
     showModal({
-        title: "Lanche: Nome do Lanche", 
+        title: "Lanche: Nome do Lanche",
         message: "Agora é só esperar o seu lanche chegar",
         icon: "🛵",
         fn: () => {
@@ -33,7 +33,7 @@ btnCancelOrderEl.addEventListener("click", () => {
     btnHomeEl.click();
 })
 
-function fillOrderConfirmationPage(){
+function fillOrderConfirmationPage() {
     let snack = getSnackSelected();
 
     idSnackEl.innerText = snack.id;
@@ -42,10 +42,9 @@ function fillOrderConfirmationPage(){
     inputValueSnackEl.value = snack.value;
 }
 
-function getOrderFromForm(){
+function getOrderFromForm() {
     let orderObject = {};
-    
-    orderObject.id_user = 1;
+
     orderObject.id_snack = idSnackEl.innerText;
     orderObject.totalValue = (inputValueSnackEl.value * inputQuantityEl.value);
     orderObject.payment = selectPaymentEl.value;

@@ -19,6 +19,8 @@ btnMakeLoginEl.addEventListener("click", async () => {
 
         if (accessToken) {
             setTokenAccess(accessToken)
+            // preciso atualizar tudo orders, snacks
+            window.location.reload();
         }
 
     }

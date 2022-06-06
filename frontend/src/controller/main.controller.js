@@ -43,7 +43,18 @@ const btnCardapioEl = document.getElementById("btn-cardapio");
 const btnPedidosEl = document.getElementById("btn-pedidos");
 const btnSnackManageEl = document.getElementById("btn-snack-manage");
 const btnLoginEl = document.getElementById("btn-login");
+const btnLogoutEl = document.getElementById("btn-logout");
 
+function verifyIfIsLoggedIn() {
+
+    if (getTokenAccess()) {
+        const p = document.createElement("p");
+        p.style.color = "white";
+        p.textContent = "VOCE ESTA LOGADO !!!";
+        btnLoginEl.replaceWith(p);
+    }
+
+}
 
 btnHomeEl.addEventListener("click", () => {
     loadPage(pages[0]);
@@ -63,7 +74,7 @@ btnPedidosEl.addEventListener("click", () => {
     btnPedidosEl.classList.add("selected")
 });
 
-async function loadOrderConfirmationPage(id){
+async function loadOrderConfirmationPage(id) {
     loadPage(pages[3]);
     await setSnackSelected(id);
     fillOrderConfirmationPage();
@@ -77,60 +88,69 @@ btnSnackManageEl.addEventListener("click", () => {
 
 btnLoginEl.addEventListener("click", () => {
     loadPage(pages[5]);
+    removeSelectionOfButtons();
+    btnLoginEl.classList.add("selected");
 })
 
-async function setSnackSelected(id){
+btnLogoutEl.addEventListener("click", () => {
+    logout();
+})
+
+async function setSnackSelected(id) {
     this.snackSelected = await getSnack(id);
 }
 
-function getSnackSelected(){
+function getSnackSelected() {
     return this.snackSelected;
 }
 
 
-function loadPage(page){
+function loadPage(page) {
     hideSections();
-    if(!page.loaded){
+    if (!page.loaded) {
         fetch(page.html).then(response => response.text())
-        .then(html => {
-            page.section.innerHTML = html;
-            if(page.script){
-                let script = document.createElement('script');
-                script.src = page.script;
-                document.body.appendChild(script);
-            }
-            page.loaded = true;
-        })
+            .then(html => {
+                page.section.innerHTML = html;
+                if (page.script) {
+                    let script = document.createElement('script');
+                    script.src = page.script;
+                    document.body.appendChild(script);
+                }
+                page.loaded = true;
+            })
     }
     page.section.style.display = "block"
 }
 
-function hideSections(){
+function hideSections() {
     pages.forEach(page => {
         page.section.style.display = 'none'
     })
 }
 
-function removeSelectionOfButtons(){
+function removeSelectionOfButtons() {
     buttonsHeader.forEach(btn => {
         btn.classList.remove("selected")
     })
 }
 
-const modalEl = document.getElementById('modal'); 
+const modalEl = document.getElementById('modal');
 
-function showModal({title, message, icon, fn}){
-  modalEl.classList.remove("hidden");
-  document.getElementById("modal-title").innerText = title;
-  document.getElementById("modal-message").innerText = message;
-  document.getElementById("modal-icon").innerText = icon
+function showModal({ title, message, icon, fn }) {
+    modalEl.classList.remove("hidden");
+    document.getElementById("modal-title").innerText = title;
+    document.getElementById("modal-message").innerText = message;
+    document.getElementById("modal-icon").innerText = icon
 
-  document.getElementById('close-modal')
-  .replaceWith(document.getElementById('close-modal').cloneNode(true));
+    document.getElementById('close-modal')
+        .replaceWith(document.getElementById('close-modal').cloneNode(true));
 
-  document.getElementById('close-modal').addEventListener("click", () => {
-    fn();
-    modalEl.classList.add("hidden");
-  });
+    document.getElementById('close-modal').addEventListener("click", () => {
+        fn();
+        modalEl.classList.add("hidden");
+    });
 }
 
+(() => {
+    verifyIfIsLoggedIn();
+})()

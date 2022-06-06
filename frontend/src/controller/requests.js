@@ -7,6 +7,18 @@ async function getAllOrders() {
     return await fetch('http://localhost:3000/orders').then(response => response.json());
 }
 
+async function getAllOrdersByUser() {
+    return await fetch('http://localhost:3000/users/orders', {
+        method: "GET",
+        headers: {
+
+            "Authorization": `Bearer ${getTokenAccess()}`
+        }
+    })
+        .then(response => response.json())
+        .then(obj => obj.Orders);
+}
+
 async function getSnack(id) {
     return await fetch(`http://localhost:3000/snack/snack/${id}`).then(response => response.json());
 }
@@ -29,6 +41,7 @@ async function makeAOrder(orderObject) {
     return await fetch(`http://localhost:3000/orders`, {
         method: `POST`,
         headers: {
+            "Authorization": `Bearer ${getTokenAccess()}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -61,6 +74,10 @@ function setTokenAccess(token) {
 
 function getTokenAccess() {
     const token = localStorage.getItem("token");
-    console.log(token);
     return token;
+}
+
+function logout() {
+    localStorage.clear();
+    window.location.reload();
 } 
