@@ -80,6 +80,22 @@ async function insertNewSnackRequest(snack) {
         .then(json => json.message);
 }
 
+async function updateSnackRequest(snack) {
+    const snackJSON = JSON.stringify(snack);
+    console.log(snackJSON);
+
+    return await fetch(`http://localhost:3000/snack/${snack.id}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Bearer ${getTokenAccess()}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(snack)
+    }).then(response => response.json())
+        .then(json => json.message);
+}
+
 function setTokenAccess(token) {
     localStorage.setItem("token", token);
 }

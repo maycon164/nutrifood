@@ -1,13 +1,26 @@
 const listOfSnacksManageEl = document.getElementById("list-of-snack-manage");
-const inputImageSnackFormEl = document.getElementById("input-image-snack-form");
-const snackImagePreview = document.getElementById("snack-image-preview");
-const btnShowFormSnack = document.getElementById("show-form-snack");
-const btnCancelFormNewSnack = document.getElementById("btn-cancel-snack");
-const formNewSnackSection = document.getElementById("form-new-snack-section");
-const tableSnacksSection = document.getElementById("table-snacks-section");
-const formSnackEl = document.getElementById("form-snack");
-const btnInsertNewSnackEl = document.getElementById("btn-insert-snack");
 
+const inputImageSnackFormEl = document.getElementById("input-image-snack-form");
+const inputImageSnackUpdateFormEl = document.getElementById("input-image-update-snack-form");
+
+const snackImagePreview = document.getElementById("snack-image-preview");
+const updateSnackImagePreview = document.getElementById("update-snack-image-preview");
+
+const btnShowFormSnack = document.getElementById("show-form-snack");
+
+const btnCancelFormNewSnack = document.getElementById("btn-cancel-snack");
+const btnCancelFormUpdateSnack = document.getElementById("btn-update-cancel-snack");
+
+const insertSnackSection = document.getElementById("insert-snack-section");
+const updateSnackSection = document.getElementById("update-snack-section");
+
+const tableSnacksSection = document.getElementById("table-snacks-section");
+
+const insertFormSnackEl = document.getElementById("insert-form-snack");
+const updateFormSnackEl = document.getElementById("update-form-snack");
+
+const btnInsertNewSnackEl = document.getElementById("btn-insert-snack");
+const bntUpdateSnackEl = document.getElementById("btn-update-snack");
 
 async function fillTableSnackManage() {
     const snacks = await getAllSnacks();
@@ -19,17 +32,24 @@ async function fillTableSnackManage() {
 }
 
 inputImageSnackFormEl.addEventListener("change", () => {
+    fillImagePreview(inputImageSnackFormEl, snackImagePreview);
+});
 
-    if (inputImageSnackFormEl.files && inputImageSnackFormEl.files[0]) {
+inputImageSnackUpdateFormEl.addEventListener("change", () => {
+    fillImagePreview(inputImageSnackUpdateFormEl, updateSnackImagePreview);
+})
+
+function fillImagePreview(inputImage, imagePreview) {
+    if (inputImage.files && inputImage.files[0]) {
         const imageReader = new FileReader();
 
         imageReader.onload = (image) => {
-            snackImagePreview.src = image.target.result
+            imagePreview.src = image.target.result
         }
 
-        imageReader.readAsDataURL(inputImageSnackFormEl.files[0])
+        imageReader.readAsDataURL(inputImage.files[0])
     }
-});
+}
 
 
 function createRowSnackManage(snack) {
@@ -52,7 +72,7 @@ function createRowSnackManage(snack) {
         </td>
         <td class="text-sm text-gray-900 font-light whitespace-nowrap">
             <div class="flex space-x-2 justify-center">
-                <button onclick="updateSnack(${snack.id})" type="button" class="inline-block px-4 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                <button onclick="showFormToUpdateSnack(${snack.id})" type="button" class="inline-block px-4 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                     EDIT 
                 </button>
             </div>
@@ -84,22 +104,34 @@ async function confirmDelete(id) {
 }
 
 btnShowFormSnack.addEventListener("click", (event) => {
-    formNewSnackSection.classList.remove("hidden");
+    insertSnackSection.classList.remove("hidden");
     tableSnacksSection.classList.add("hidden");
 });
 
 btnCancelFormNewSnack.addEventListener("click", (event) => {
-    tableSnacksSection.classList.remove("hidden");
-    formNewSnackSection.classList.add("hidden");
+    showTableSnackSection();
 });
+
+
+btnCancelFormUpdateSnack.addEventListener("click", () => {
+    showTableSnackSection();
+})
+
+function showTableSnackSection() {
+    tableSnacksSection.classList.remove("hidden");
+    insertSnackSection.classList.add("hidden");
+    updateSnackSection.classList.add("hidden");
+}
+
 
 btnInsertNewSnackEl.addEventListener("click", (event) => {
     event.preventDefault();
     insertNewSnack();
 });
 
+
 async function insertNewSnack() {
-    const formData = new FormData(formSnackEl);
+    const formData = new FormData(insertFormSnackEl);
     formData.set("status", "available");
 
     const message = await insertNewSnackRequest(formData);
@@ -110,7 +142,7 @@ async function insertNewSnack() {
             icon: "[ I - INSERTED]",
             fn: () => {
                 snackImagePreview.src = "";
-                formSnackEl.reset();
+                insertFormSnackEl.reset();
                 fillTableSnackManage();
                 fillListOfSnacks();
                 btnCancelFormNewSnack.click();
@@ -122,6 +154,62 @@ async function insertNewSnack() {
     }
 }
 
+bntUpdateSnackEl.addEventListener("click", (event) => {
+    event.preventDefault();
+    updateSnack();
+})
+
+async function updateSnack() {
+    const formData = new FormData(updateFormSnackEl);
+    formData.set("status", "available");
+    var objectSnackToUpdate = {};
+    formData.forEach(function (value, key) {
+        objectSnackToUpdate[key] = value;
+    });
+    delete objectSnackToUpdate.file;
+    console.log(objectSnackToUpdate);
+    const message = await updateSnackRequest(objectSnackToUpdate);
+
+    if (message) {
+        showModal({
+            title: 'Update Snack',
+            message,
+            icon: "[ U - UPDATED]",
+            fn: () => {
+                updateSnackImagePreview.src = "";
+                updateFormSnackEl.reset();
+                fillTableSnackManage();
+                fillListOfSnacks();
+                btnCancelFormUpdateSnack.click();
+            }
+        })
+
+    } else {
+        alert("não foi possivel atualizar!!!");
+    }
+}
+
+
+async function showFormToUpdateSnack(snackId) {
+    const snackObject = await getSnack(snackId);
+    console.log(snackObject)
+
+    showUpdateSnackSection();
+    fillUpdateForm(snackObject);
+}
+
+function fillUpdateForm(snack) {
+    document.getElementById("input-update-id").value = snack.id;
+    updateSnackImagePreview.src = snack.image;
+    document.getElementById("update-name-snack").value = snack.name;
+    document.getElementById("update-value-snack").value = snack.value;
+    updateSnackSection.querySelector("#select-category").value = snack.category;
+}
+
+function showUpdateSnackSection() {
+    updateSnackSection.classList.remove("hidden");
+    tableSnacksSection.classList.add("hidden");
+}
 
 (() => {
     fillTableSnackManage();
