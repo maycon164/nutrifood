@@ -160,4 +160,5 @@ function showModal({ title, message, icon, fn }) {
 
 (() => {
     verifyIfIsLoggedIn();
+    btnHomeEl.click()
 })()

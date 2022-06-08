@@ -1,0 +1,57 @@
+.banner-image {
+    padding: 10px;
+}
+
+.banner-image>h1 {
+    font-size: 28px;
+
+    text-align: center;
+}
+
+strong {
+    font-weight: normal;
+}
+
+.banner-image>picture,
+.location,
+.outros {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.banner-image>picture>img {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.info-geral {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.info-location {
+    width: 400px;
+    margin-right: 50px;
+}
+
+.info-location>picture>img {
+    margin: 0 auto;
+}
+
+.info-location-text {
+    text-align: center;
+}
+
+.info-text {
+    width: 600px;
+}
+
+.center {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

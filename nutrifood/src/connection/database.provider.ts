@@ -30,6 +30,15 @@ export const databaseProviders = [
         phone: '11943166799',
       });
 
+      await User.create({
+        name: 'Felipe',
+        email: 'felipe@gmail.com',
+        password: 'senha123',
+        address: 'Rua Dos Felipes',
+        isAdmin: false,
+        phone: '11943166799',
+      })
+
       snackmock.forEach(async (snack) => {
         await Snack.create(snack);
       });
