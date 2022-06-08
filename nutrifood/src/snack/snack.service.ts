@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Snack } from './entities/snack.entitie';
+import { Snack } from './entities/snack.entity';
 
 @Injectable()
 export class SnackService {
   constructor(
     @Inject('SNACK_REPOSITORY')
     private readonly snackRepository: typeof Snack,
-  ) {}
+  ) { }
 
   async insertSnack(snack) {
     const snackSaved = await this.snackRepository.create(snack);
@@ -23,7 +23,6 @@ export class SnackService {
 
   async getSnackById(id: number) {
     const snack = await this.snackRepository.findByPk(id);
-    console.log(snack);
     return snack;
   }
 

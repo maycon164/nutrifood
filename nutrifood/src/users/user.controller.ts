@@ -1,28 +1,36 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { User } from './entities/user.entitie';
+import { Body, Controller, Get, Param, Post, UseGuards, Request, UnauthorizedException, ValidationPipe, UsePipes } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly service: UserService) {}
+  constructor(
+    private readonly service: UserService,
+  ) { }
 
   @Get()
   async getAllUsers() {
     return this.service.getAllUsers();
   }
 
-  @Get('/:id/orders')
-  async getOrders(@Param('id') id: number) {
-    return await this.service.getOrderByUser(id);
+  @UseGuards(JwtAuthGuard)
+  @Get('/orders')
+  async getOrders(@Request() req) {
+
+    const { user } = req;
+    if (user.userId) {
+      return await this.service.getOrderByUser(user.userId);
+    } else {
+      throw new UnauthorizedException();
+    }
+
   }
 
+  @UsePipes(ValidationPipe)
   @Post()
   async insertUser(@Body() user: User) {
     return this.service.insertUser(user);
   }
 
-  @Post('/login')
-  async login(@Body() userlogin: { email: string; password: string }) {
-    return { message: 'not implemented!!!' };
-  }
 }

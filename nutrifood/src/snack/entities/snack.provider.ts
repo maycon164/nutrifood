@@ -1,4 +1,4 @@
-import { Snack } from './snack.entitie';
+import { Snack } from './snack.entity';
 
 export const snackProvider = [
   {

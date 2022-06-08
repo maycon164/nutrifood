@@ -1,23 +1,16 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Order } from 'src/orders/entities/order.entitie';
-import { Snack } from 'src/snack/entities/snack.entitie';
-import { User } from 'src/users/entities/user.entitie';
+import { Order } from 'src/orders/entities/order.entity';
+import { Snack } from 'src/snack/entities/snack.entity';
+import { User } from 'src/users/entities/user.entity';
+import snackmock from '../mock/snackmock';
 
 export const databaseProviders = [
   {
     provide: 'SEQUELIZE',
     useFactory: async () => {
       const sequelize = new Sequelize({
-        dialect: 'mssql',
-        host: 'localhost',
-        port: 1433,
-        username: 'SA',
-        password: 'Maycon@123',
-        database: 'nutrifood',
-        define: {
-          timestamps: true,
-          underscored: true,
-        },
+        dialect: 'sqlite',
+        storage: '../nutrifood-db',
       });
       sequelize.addModels([Snack, User, Order]);
 
@@ -27,6 +20,29 @@ export const databaseProviders = [
       Order.belongsTo(Snack, { foreignKey: 'id_snack' });
 
       await sequelize.sync({ force: true });
+
+      await User.create({
+        name: 'Maycon',
+        email: 'maycon@gmail.com',
+        password: 'senha123',
+        address: 'Rua Dos X',
+        isAdmin: true,
+        phone: '11943166799',
+      });
+
+      await User.create({
+        name: 'Felipe',
+        email: 'felipe@gmail.com',
+        password: 'senha123',
+        address: 'Rua Dos Felipes',
+        isAdmin: false,
+        phone: '11943166799',
+      })
+
+      snackmock.forEach(async (snack) => {
+        await Snack.create(snack);
+      });
+
       return sequelize;
     },
   },

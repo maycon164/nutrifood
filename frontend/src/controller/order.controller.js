@@ -1,20 +1,16 @@
 const listOfOrdersEl = document.getElementById("list-of-orders")
 
-async function loadOrders(){
+async function loadOrders() {
+    const orders = await getAllOrdersByUser();
     listOfOrdersEl.innerText = "";
-
-    const orders = await getAllOrders();
-   
     orders.forEach(order => {
-
         const orderElement = createOrderView(order);
         listOfOrdersEl.insertAdjacentHTML("afterbegin", orderElement);
-   
     });
 }
 
 
-function createOrderView({id, totalValue, payment, createdAt, id_snack }){
+function createOrderView({ id, totalValue, payment, createdAt, id_snack }) {
     return `
     <li>
         <div class="md:flex flex-start">
@@ -61,7 +57,7 @@ function createOrderView({id, totalValue, payment, createdAt, id_snack }){
     `
 }
 
-function seeMoreDatails(){
+function seeMoreDatails() {
     alert("AINDA NÃO IMPLEMENTADO")
 }
 

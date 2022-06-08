@@ -1,7 +1,7 @@
 const contSnacksEl = document.getElementById("container-snacks");
 const selectCategoryEl = document.getElementById("select-category");
 
-async function getSnacks(category=""){
+async function fillListOfSnacks(category=""){
     contSnacksEl.innerText = "";
     
     const snacks = await getAllSnacks(category);
@@ -12,7 +12,7 @@ async function getSnacks(category=""){
 
 selectCategoryEl.addEventListener("change", () => {
     const categorySelected = selectCategoryEl.value;
-    getSnacks(categorySelected)
+    fillListOfSnacks(categorySelected)
 });
 
 function createSnackElement({id, name, category, value, image}){
@@ -87,7 +87,7 @@ function realizarPedido(id){
 
 //auto invoked function
 (function() {
-    getSnacks();
+  fillListOfSnacks();
  }) () 
 
 

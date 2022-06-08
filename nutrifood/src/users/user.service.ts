@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Order } from 'src/orders/entities/order.entitie';
-import { User } from './entities/user.entitie';
+import { Order } from 'src/orders/entities/order.entity';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @Inject('USER_REPOSITORY')
     private readonly userRepository: typeof User,
-  ) {}
+  ) { }
 
   async insertUser(user) {
     const snackSaved = await this.userRepository.create(user);
@@ -26,5 +26,12 @@ export class UserService {
     });
 
     return userAndOrders;
+  }
+
+  async findOneByEmail(email: string) {
+
+    const user = this.userRepository.findOne({ where: { email: email } });
+    return user;
+
   }
 }
