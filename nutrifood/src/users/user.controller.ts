@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards, Request, UnauthorizedException, ValidationPipe, UsePipes } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { User } from './entities/user.entity';
+import { UserDTO } from './entities/UserDTO';
+//import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+//import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -10,11 +11,11 @@ export class UserController {
   ) { }
 
   @Get()
-  async getAllUsers() {
+  async getAllUsers(): Promise<UserDTO[]> {
     return this.service.getAllUsers();
   }
 
-  @UseGuards(JwtAuthGuard)
+  /*/@UseGuards(JwtAuthGuard)
   @Get('/orders')
   async getOrders(@Request() req) {
 
@@ -24,12 +25,11 @@ export class UserController {
     } else {
       throw new UnauthorizedException();
     }
-
-  }
+  }*/
 
   @UsePipes(ValidationPipe)
   @Post()
-  async insertUser(@Body() user: User) {
+  async insertUser(@Body() user: UserDTO) {
     return this.service.insertUser(user);
   }
 

@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Order } from 'src/orders/entities/order.entity';
 import { Snack } from 'src/snack/entities/snack.entity';
-import { User } from 'src/users/entities/user.entity';
+import { User } from 'src/sequelize/entities/user.entity'
 import snackmock from '../mock/snackmock';
 
 export const databaseProviders = [
