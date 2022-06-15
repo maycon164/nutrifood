@@ -1,10 +1,12 @@
 import { Body, Controller, Get, Param, Post, UseGuards, Request, UnauthorizedException, ValidationPipe, UsePipes } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { UserDTO } from './entities/UserDTO';
 //import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 //import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @Controller('users')
+@ApiTags('users')
 export class UserController {
   constructor(
     private readonly service: UserService,

@@ -1,28 +1,24 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/database/prisma.service';
+import { Injectable } from '@nestjs/common';
+import { UserRepository } from 'src/database/implementations/UserRepository';
 import { UserDTO } from './entities/UserDTO';
 
 
 @Injectable()
 export class UserService {
-  private userRepository;
   constructor(
-    private readonly prisma: PrismaService
+    private readonly userRepository: UserRepository
   ) {
-    this.userRepository = this.prisma.user
   }
 
   async insertUser(user: UserDTO): Promise<null | UserDTO> {
-    const userSaved = await this.userRepository.create({
-      data: user
-    });
+    const userSaved = await this.userRepository.insert(user);
 
     return userSaved;
   }
 
   async getAllUsers(): Promise<null | UserDTO[]> {
 
-    const users = await this.userRepository.findMany();
+    const users = await this.userRepository.findAll();
     return users;
 
   }
@@ -37,10 +33,11 @@ export class UserService {
   }*/
 
   async findOneByEmail(email: string): Promise<UserDTO | null> {
-    const user = this.prisma.user.findUnique({
-      where: { email: email }
-    });
-
+    const user = this.userRepository.findBy({ email });
     return user;
   }
 }
+function inject(arg0: string) {
+  throw new Error('Function not implemented.');
+}
+
