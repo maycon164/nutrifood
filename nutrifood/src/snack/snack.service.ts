@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SnackRepository } from 'src/database/implementations/SnackRepository';
+import { SnackRepository } from 'src/database/repository/SnackRepository';
 import { SnackDTO } from './entities/SnackDTO';
 
 @Injectable()

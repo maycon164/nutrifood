@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { OrderRepository } from 'src/database/implementations/OrderRepository';
+import { OrderRepository } from 'src/database/repository/OrderRepository';
 import { OrderDTO } from './entities/OrderDTO';
 
 @Injectable()

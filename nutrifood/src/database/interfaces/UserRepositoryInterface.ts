@@ -1,6 +1,6 @@
 import { UserDTO } from "src/users/entities/UserDTO"
 
-export interface RepositoryInterface {
+export interface UserRepositoryInterface {
 
     findAll(): Promise<any[]>
     findBy(options: { email?: string, phone?: string, admin?: boolean }): Promise<any>

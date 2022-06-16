@@ -6,7 +6,7 @@ import { SnackModule } from './snack/snack.module';
 import { UserModule } from './users/user.module';
 import { OrderModule } from './orders/order.module';
 import { ConfigModule } from '@nestjs/config';
-import { RepositoryModule } from './database/implementations/repository.module';
+import { RepositoryModule } from './database/repository/repository.module';
 
 @Module({
   imports: [

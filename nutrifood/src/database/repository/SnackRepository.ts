@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { SnackDTO } from "src/snack/entities/SnackDTO";
-import { SnackRepositoryInterface } from "../interfaces/SnackRepository";
+import { SnackRepositoryInterface } from "../interfaces/SnackRepositoryInterface";
 import { PrismaService } from "../prisma/prisma.service";
 
 @Injectable()
