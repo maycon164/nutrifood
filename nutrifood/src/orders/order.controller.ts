@@ -14,13 +14,16 @@ export class OrderController {
     return this.service.getAllOrders();
   }
 
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   makeOrder(@Body() order: OrderDTO, @Request() req) {
     const { user } = req;
 
     if (user.userId) {
-      return this.service.makeOrder({ user: user.userId, ...order });
+      order.user = user.userId;
+
+      return this.service.makeOrder(order);
+
     } else {
       throw new UnauthorizedException();
     }

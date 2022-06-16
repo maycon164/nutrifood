@@ -1,10 +1,7 @@
-import { PrismaModule } from './database/prisma/prisma.module';
-import { PrismaService } from './database/prisma/prisma.service';
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { DatabaseModule } from './sequelize/database.module';
 import { SnackModule } from './snack/snack.module';
 import { UserModule } from './users/user.module';
 import { OrderModule } from './orders/order.module';
@@ -18,6 +15,7 @@ import { RepositoryModule } from './database/implementations/repository.module';
     AuthModule,
     UserModule,
     SnackModule,
+    OrderModule,
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'images') }),
   ],
   controllers: [],

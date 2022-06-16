@@ -22,7 +22,20 @@ export class UserRepository implements RepositoryInterface {
         throw new Error("Method not implemented.");
     }
     getOrdersById(id: number): Promise<any> {
-        throw new Error("Method not implemented.");
+        return this.prisma.user.findFirst({
+            where: { id: id },
+            include: {
+                order: {
+                    include: {
+                        items: {
+                            include: {
+                                snack: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 
     async insert(user: UserDTO): Promise<any> {

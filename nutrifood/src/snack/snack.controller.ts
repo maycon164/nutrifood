@@ -8,8 +8,7 @@ import {
   Delete,
   UploadedFile,
   UseInterceptors,
-  UseGuards, UsePipes,
-  ValidationPipe
+  UseGuards
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
@@ -52,8 +51,8 @@ export class SnackController {
     return snack;
   }
 
-  //@UseGuards(AdminGuard)
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(AdminGuard)
+  @UseGuards(JwtAuthGuard)
   @Put('/:id')
   async updateSnack(@Param('id') id: number, @Body() snack: SnackDTO) {
     const snackUpdated = await this.service.updateSnack(id, snack);
@@ -65,8 +64,8 @@ export class SnackController {
     return { message: 'could not update' };
   }
 
-  //@UseGuards(AdminGuard)
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(AdminGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   async deleteSnack(@Param('id') id: number) {
     const snackDeleted = await this.service.deleteSnack(id);
@@ -76,8 +75,8 @@ export class SnackController {
     return { message: 'could not delete' };
   }
 
-  //@UseGuards(AdminGuard)
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(AdminGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('')
   @UseInterceptors(FileInterceptor('file', storage))
   insertSnack(@UploadedFile() file, @Body() snack: SnackDTO) {

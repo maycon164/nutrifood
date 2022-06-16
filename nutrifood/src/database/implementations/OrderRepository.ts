@@ -33,7 +33,16 @@ export class OrderRepository implements OrderRepositoryInterface {
     }
 
     findAll(): Promise<any> {
-        throw new Error("Method not implemented.");
+        return this.prisma.order.findMany({
+            include: {
+                user: true,
+                items: {
+                    include: {
+                        snack: true
+                    }
+                }
+            }
+        })
     }
 
 }

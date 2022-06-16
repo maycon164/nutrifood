@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/sequelize/entities/user.entity'
+import { UserDTO } from 'src/users/entities/UserDTO';
 import { UserService } from 'src/users/user.service';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class AuthService {
         return null;
     }
 
-    async login(user: User) {
+    async login(user: any) {
         const payload = { username: user.email, sub: user.id, isAdmin: user.isAdmin };
         const token = this.jwtService.sign(payload);
         return {

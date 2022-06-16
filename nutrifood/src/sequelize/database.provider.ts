@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Order } from 'src/orders/entities/order.entity';
+import { Order } from './entities/order.entity'
 import { Snack } from 'src/sequelize/entities/snack.entity';
 import { User } from 'src/sequelize/entities/user.entity'
 import snackmock from '../mock/snackmock';

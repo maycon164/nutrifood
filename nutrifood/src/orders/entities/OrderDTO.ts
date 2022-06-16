@@ -1,4 +1,5 @@
-import { IsNumber, IsOptional, IsString } from "class-validator"
+import { ApiProperty } from "@nestjs/swagger"
+import { ArrayNotEmpty, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from "class-validator"
 import { ItemDTO } from "./ItemDTO"
 
 export class OrderDTO {
@@ -9,12 +10,17 @@ export class OrderDTO {
     @IsOptional()
     user: number
 
+    @ArrayNotEmpty()
+    @ApiProperty()
+    @ValidateNested()
     items: [ItemDTO]
 
     @IsNumber()
+    @ApiProperty()
     totalValue: number
 
     @IsString()
+    @ApiProperty()
     payment: string
 
     toSave() {
@@ -28,7 +34,7 @@ export class OrderDTO {
 
     getItemsToSave() {
         return this.items.map(item => {
-            return { snackId: item.id, orderId: this.id, quantity: item.quantity }
+            return { snackId: item.snack, orderId: this.id, quantity: item.quantity }
         })
     }
 }

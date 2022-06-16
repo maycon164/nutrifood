@@ -23,14 +23,10 @@ export class UserService {
 
   }
 
-  /*async getOrderByUser(id: number) {
-    const userAndOrders = await this.clientRepository.findOne({
-      where: { id: id },
-      include: Order,
-    });
-
+  async getOrderByUser(id: number) {
+    const userAndOrders = await this.userRepository.getOrdersById(id);
     return userAndOrders;
-  }*/
+  }
 
   async findOneByEmail(email: string): Promise<UserDTO | null> {
     const user = this.userRepository.findBy({ email });
