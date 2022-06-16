@@ -1,6 +1,6 @@
 
 async function getAllSnacks(category = "") {
-    return await fetch(`http://localhost:3000/snack/${category}`).then(response => response.json());
+    return await fetch(`http://localhost:3000/snacks/${category}`).then(response => response.json());
 }
 
 async function getAllOrders() {
@@ -20,7 +20,7 @@ async function getAllOrdersByUser() {
 }
 
 async function getSnack(id) {
-    return await fetch(`http://localhost:3000/snack/snack/${id}`).then(response => response.json());
+    return await fetch(`http://localhost:3000/snacks/snack/${id}`).then(response => response.json());
 }
 
 async function makeLogin(loginObject) {
@@ -55,7 +55,7 @@ async function makeAOrder(orderObject) {
 }
 
 async function deleteSnack(id) {
-    return await fetch(`http://localhost:3000/snack/${id}`, {
+    return await fetch(`http://localhost:3000/snacks/${id}`, {
         method: 'DELETE',
         headers: {
             "Authorization": `Bearer ${getTokenAccess()}`
@@ -70,7 +70,7 @@ async function updateSnack(id) {
 }
 
 async function insertNewSnackRequest(snack) {
-    return await fetch("http://localhost:3000/snack", {
+    return await fetch("http://localhost:3000/snacks", {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${getTokenAccess()}`
@@ -81,17 +81,15 @@ async function insertNewSnackRequest(snack) {
 }
 
 async function updateSnackRequest(snack) {
-    const snackJSON = JSON.stringify(snack);
-    console.log(snackJSON);
+    const snackId = snack.get("id");
 
-    return await fetch(`http://localhost:3000/snack/${snack.id}`, {
+    return await fetch(`http://localhost:3000/snacks/${snackId}`, {
         method: "PUT",
         headers: {
             "Authorization": `Bearer ${getTokenAccess()}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+
         },
-        body: JSON.stringify(snack)
+        body: snack
     }).then(response => response.json())
         .then(json => json.message);
 }

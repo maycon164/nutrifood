@@ -162,13 +162,10 @@ bntUpdateSnackEl.addEventListener("click", (event) => {
 async function updateSnack() {
     const formData = new FormData(updateFormSnackEl);
     formData.set("status", "available");
-    var objectSnackToUpdate = {};
-    formData.forEach(function (value, key) {
-        objectSnackToUpdate[key] = value;
-    });
-    delete objectSnackToUpdate.file;
-    console.log(objectSnackToUpdate);
-    const message = await updateSnackRequest(objectSnackToUpdate);
+
+    console.log(formData.get("id"));
+
+    const message = await updateSnackRequest(formData);
 
     if (message) {
         showModal({

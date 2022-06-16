@@ -57,7 +57,10 @@ export class SnackController {
   @UseInterceptors(FileInterceptor('file', storage))
   async updateSnack(@Param('id') id: number, @UploadedFile() file, @Body() snack: SnackDTO) {
 
-    snack.image = `http://localhost:3000/${file.filename}`;
+    if (file) {
+      snack.image = `http://localhost:3000/${file.filename}`;
+    }
+
     const snackUpdated = await this.service.updateSnack(id, snack);
 
     if (snackUpdated) {
