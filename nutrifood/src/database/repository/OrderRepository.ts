@@ -10,6 +10,32 @@ export class OrderRepository implements OrderRepositoryInterface {
         private readonly prisma: PrismaService
     ) { }
 
+    findById(id: number): Promise<any> {
+        return this.prisma.order.findUnique({
+            where: { id: id },
+            select: {
+                id: true,
+                userId: true,
+                payment: true,
+                totalValue: true,
+                items: {
+                    select: {
+                        quantity: true,
+                        totalValue: true,
+                        snack: {
+                            select: {
+                                name: true,
+                                image: true,
+                                value: true
+                            }
+                        }
+                    }
+                },
+            }
+
+        })
+    }
+
     async insert(order: OrderDTO): Promise<any> {
 
         const orderCreated = await this.prisma.order.create({

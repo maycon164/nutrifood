@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards, Request, UnauthorizedException, ConsoleLogger } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, Request, UnauthorizedException, ConsoleLogger, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { OrderDTO } from './entities/OrderDTO';
@@ -12,6 +12,13 @@ export class OrderController {
   @Get()
   getAllOrders() {
     return this.service.getAllOrders();
+  }
+
+
+  @UseGuards(JwtAuthGuard)
+  @Get("/:id")
+  getOrderById(@Param("id") id: number) {
+    return this.service.getOrderById(id);
   }
 
   @UseGuards(JwtAuthGuard)

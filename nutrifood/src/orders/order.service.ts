@@ -15,4 +15,9 @@ export class OrderService {
   async getAllOrders() {
     return await this.orderRepository.findAll();
   }
+
+  async getOrderById(id: number) {
+    return await this.orderRepository.findById(id);
+  }
+
 }
