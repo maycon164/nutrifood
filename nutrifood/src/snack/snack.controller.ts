@@ -8,18 +8,15 @@ import {
   Delete,
   UploadedFile,
   UseInterceptors,
-  HttpCode,
-  UseGuards,
-  Request,
-  UsePipes,
+  UseGuards, UsePipes,
   ValidationPipe
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
 import { AdminGuard } from 'src/auth/guards/admin.guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-
-import { Snack } from './entities/snack.entity';
+import { SnackDTO } from './entities/SnackDTO';
 import { SnackService } from './snack.service';
 
 const storage = {
@@ -32,60 +29,58 @@ const storage = {
   }),
 };
 
-@Controller('snack')
+@Controller('snacks')
+@ApiTags('snacks')
 export class SnackController {
   constructor(private readonly service: SnackService) { }
 
   @Get()
-  getAllSnacks(): Promise<Snack[]> {
+  getAllSnacks(): Promise<any[]> {
     return this.service.getAllSnacks();
   }
 
   @Get('/:category')
   getAllSnacksByCategory(
     @Param('category') category: string,
-  ): Promise<Snack[]> {
+  ): Promise<any[]> {
     return this.service.getSnacksByCategory(category);
   }
 
   @Get('/snack/:id')
   async getSnackById(@Param('id') id: number) {
-    console.log('teste');
     const snack = await this.service.getSnackById(id);
     return snack;
   }
 
-  @UseGuards(AdminGuard)
-  @UseGuards(JwtAuthGuard)
-  @UsePipes(ValidationPipe)
+  //@UseGuards(AdminGuard)
+  //@UseGuards(JwtAuthGuard)
   @Put('/:id')
-  @HttpCode(200)
-  async updateSnack(@Param('id') id: number, @Body() snack: Snack) {
-    const rowsAffected = await this.service.updateSnack(id, snack);
-    if (rowsAffected[0] > 0) {
+  async updateSnack(@Param('id') id: number, @Body() snack: SnackDTO) {
+    const snackUpdated = await this.service.updateSnack(id, snack);
+
+    if (snackUpdated) {
       return { message: 'successfully updated' };
     }
+
     return { message: 'could not update' };
   }
 
-  @UseGuards(AdminGuard)
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(AdminGuard)
+  //@UseGuards(JwtAuthGuard)
   @Delete('/:id')
-  @HttpCode(200)
   async deleteSnack(@Param('id') id: number) {
-    const rowsAffected = await this.service.deleteSnack(id);
-    if (rowsAffected > 0) {
+    const snackDeleted = await this.service.deleteSnack(id);
+    if (snackDeleted) {
       return { message: 'successfully deleted' };
     }
     return { message: 'could not delete' };
   }
 
-  @UseGuards(AdminGuard)
-  @UseGuards(JwtAuthGuard)
-  @UsePipes(ValidationPipe)
+  //@UseGuards(AdminGuard)
+  //@UseGuards(JwtAuthGuard)
   @Post('')
   @UseInterceptors(FileInterceptor('file', storage))
-  insertSnack(@UploadedFile() file, @Body() snack: Snack) {
+  insertSnack(@UploadedFile() file, @Body() snack: SnackDTO) {
 
     const snackData = snack;
     snackData.image = `http://localhost:3000/${file.filename}`;

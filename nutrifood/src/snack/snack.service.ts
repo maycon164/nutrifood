@@ -1,28 +1,28 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Snack } from './entities/snack.entity';
+import { Injectable } from '@nestjs/common';
+import { SnackRepository } from 'src/database/implementations/SnackRepository';
+import { SnackDTO } from './entities/SnackDTO';
 
 @Injectable()
 export class SnackService {
   constructor(
-    @Inject('SNACK_REPOSITORY')
-    private readonly snackRepository: typeof Snack,
+    private readonly snackRepository: SnackRepository
   ) { }
 
-  async insertSnack(snack) {
-    const snackSaved = await this.snackRepository.create(snack);
+  async insertSnack(snack: SnackDTO) {
+    const snackSaved = await this.snackRepository.insert(snack);
     return snackSaved;
   }
 
-  async updateSnack(id: number, snack: Snack) {
-    return this.snackRepository.update(snack, { where: { id: id } });
+  async updateSnack(id: number, snack: SnackDTO) {
+    return this.snackRepository.update(id, snack);
   }
 
   async getSnacksByCategory(category: string) {
-    return this.snackRepository.findAll({ where: { category: category } });
+    return this.snackRepository.findBy({ category });
   }
 
   async getSnackById(id: number) {
-    const snack = await this.snackRepository.findByPk(id);
+    const snack = await this.snackRepository.findById(id);
     return snack;
   }
 
@@ -31,6 +31,6 @@ export class SnackService {
   }
 
   async deleteSnack(id: number) {
-    return this.snackRepository.destroy({ where: { id } });
+    return this.snackRepository.delete(id)
   }
 }

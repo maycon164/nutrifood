@@ -17,6 +17,7 @@ import { RepositoryModule } from './database/implementations/repository.module';
     RepositoryModule,
     AuthModule,
     UserModule,
+    SnackModule,
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'images') }),
   ],
   controllers: [],

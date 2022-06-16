@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { SnackRepository } from 'src/database/implementations/SnackRepository';
 import { SnackController } from './snack.controller';
 import { SnackService } from './snack.service';
-import { snackProvider } from './entities/snack.provider';
+
 @Module({
   imports: [],
   controllers: [SnackController],
-  providers: [SnackService, ...snackProvider],
+  providers: [SnackService, SnackRepository],
 })
 export class SnackModule { }
