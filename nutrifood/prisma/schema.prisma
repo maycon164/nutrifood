@@ -33,11 +33,13 @@ model order {
 }
 
 model item {
-  id      Int   @id
-  order   order @relation(fields: [orderId], references: [id])
-  orderId Int
-  snack   snack @relation(fields: [snackId], references: [id])
-  snackId Int
+  id         Int      @id @default(autoincrement())
+  order      order    @relation(fields: [orderId], references: [id])
+  orderId    Int
+  snack      snack    @relation(fields: [snackId], references: [id])
+  snackId    Int
+  quantity   Int
+  totalValue Decimal?
 }
 
 model address {
@@ -53,9 +55,10 @@ model address {
 model snack {
   id          Int     @id @default(autoincrement())
   name        String
-  description String
+  description String?
   value       Decimal
   category    String
+  image       String?
   status      String
   item        item[]
 }
