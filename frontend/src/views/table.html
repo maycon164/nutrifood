@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<style>
+    .modal-table-order-details {
+        position: relative;
+        margin: 0 auto;
+        top: 60px;
+        border: ridge 4px blue;
+    }
+</style>
+
+<body>
+
+    <div id="modal-order-detail"
+        class="modal-table-order-details overflow-x-auto  sm:rounded-lg fade w-2/3 h-full outline-none overflow-x-hidden overflow-y-auto">
+        <h2 class="text-2xl text-center font-extrabold tracking-tight text-indigo-600">
+            Informacoes do Pedido#1
+        </h2>
+
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Nome
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Preco
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        quantidade
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        total
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="list-of-snacks-from-order">
+
+                <tr
+                    class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                        Hamburguer Vegetariano
+                    </th>
+                    <td class="px-6 py-4">
+                        R$ 10.99
+                    </td>
+                    <td class="px-6 py-4">
+                        3
+                    </td>
+                    <td class="px-6 py-4">
+                        R$ 32.97
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <h2 class="text-1xl text-center font-extrabold tracking-tight text-indigo-600">
+            Forma de Pagamento: <strong id="payment-detail">PIX</strong>
+        </h2>
+        <h2 id="" class="text-1xl text-center font-extrabold tracking-tight text-indigo-600">
+            Valor Total: R$ <strong id="total-value-detail">1200.99</strong>
+        </h2>
+
+        <button id="btn-close-modal-order-detail" style="display: block; margin:10px auto" id="btn-close-order-details"
+            type="button"
+            class="inline-block my-2.5 px-4 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+            Close
+        </button>
+
+    </div>
+
+</body>
+
+<script>
+    const listOfSnacksFromOrderEl = document.getElementById("list-of-snacks-from-order");
+    const paymentDetailEl = document.getElementById("payment-detail");
+    const totalValueDetailEl = document.getElementById("total-value-detail");
+
+    const btnCloseTableOrdereDetailEl = document.getElementById("btn-close-modal-order-detail");
+    const modalOrderDetailEl = document.getElementById("modal-order-detail");
+
+    const order = {
+        "id": 1,
+        "userId": 1,
+        "payment": "DEBIT_CARD",
+        "totalValue": "100.99",
+        "items": [
+            {
+                "quantity": 2,
+                "totalValue": null,
+                "snack": {
+                    "name": "Hamburguer",
+                    "image": "http://localhost:3000/food.jpeg",
+                    "value": "12.99"
+                }
+            },
+            {
+                "quantity": 1,
+                "totalValue": null,
+                "snack": {
+                    "name": "Bolo",
+                    "image": "http://localhost:3000/bolo.jpeg",
+                    "value": "15.99"
+                }
+            },
+            {
+                "quantity": 4,
+                "totalValue": null,
+                "snack": {
+                    "name": "Hot Dog",
+                    "image": "http://localhost:3000/hotdog.jpeg",
+                    "value": "10.99"
+                }
+            }
+        ]
+    }
+
+    function fillTableDetailFromOrder() {
+        listOfSnacksFromOrderEl.innerText = "";
+
+        paymentDetailEl.textContent = order.payment;
+        totalValueDetailEl.textContent = order.totalValue;
+
+        order.items.forEach(item => {
+            const rowItem = createRowSnackFromOrder(item);
+            listOfSnacksFromOrderEl.insertAdjacentHTML("afterbegin", rowItem);
+        })
+
+    }
+
+    btnCloseTableOrdereDetailEl.addEventListener("click", () => {
+        modalOrderDetailEl.classList.add("hidden");
+    });
+
+    function createRowSnackFromOrder(item) {
+
+        let { quantity, totalValue } = item;
+        const { name, value } = item.snack;
+
+        if (!totalValue) {
+            totalValue = quantity * value;
+        }
+
+        return `
+        <tr
+                    class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                        ${name}
+                    </th>
+                    <td class="px-6 py-4">
+                        R$ ${value}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${quantity}
+                    </td>
+                    <td class="px-6 py-4">
+                        R$ ${totalValue}
+                    </td>
+                </tr>
+        `
+    }
+
+</script>
+
+</html>

@@ -10,7 +10,9 @@ async function loadOrders() {
 }
 
 
-function createOrderView({ id, totalValue, payment, createdAt, id_snack }) {
+function createOrderView({ id, totalValue, payment, createdAt, items }) {
+    const itemsNames = items.map(item => item.snack.name);
+
     return `
     <li>
         <div class="md:flex flex-start">
@@ -35,18 +37,18 @@ function createOrderView({ id, totalValue, payment, createdAt, id_snack }) {
                 </div>
                 
                 <h1 class="text-gray-700 mb-1 text-lg">
-                    Lanche: ${id_snack} 
+                    Lanche: ${itemsNames}
                 </h1>
 
                 <span class="text-gray-700">VALOR: R$ ${totalValue}</span>
                 
-                <p class="text-gray-700">PAGO VIA ${payment}</p>
+                <p class="text-gray-700">PAGO VIA <strong>${payment}</strong></p>
                 
                 <p class="text-gray-700 mb-6">
                     ENTREGUE: PARA O ENDERECO E NUM DA CASA
                 </p>
                 
-                <button onclick="seeMoreDatails()" type="button" class="inline-block px-4 py-1.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true">VER MAIS DETALHES</button>
+                <button onclick="seeMoreDatails(${id})" type="button" class="inline-block px-4 py-1.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true">VER MAIS DETALHES</button>
                 <button type="button" class=" hidden inline-block px-3.5 py-1 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out" data-mdb-ripple="true">See demo</button>
             
             </div>
@@ -57,8 +59,64 @@ function createOrderView({ id, totalValue, payment, createdAt, id_snack }) {
     `
 }
 
-function seeMoreDatails() {
-    alert("AINDA NÃO IMPLEMENTADO")
+async function seeMoreDatails(id) {
+    modalOrderDetailEl.classList.remove("hidden");
+    const order = await getOrderById(id);
+    fillTableDetailFromOrder(order);
+}
+
+const listOfSnacksFromOrderEl = document.getElementById("list-of-snacks-from-order");
+const paymentDetailEl = document.getElementById("payment-detail");
+const totalValueDetailEl = document.getElementById("total-value-detail");
+
+const btnCloseTableOrdereDetailEl = document.getElementById("btn-close-modal-order-detail");
+const modalOrderDetailEl = document.getElementById("modal-order-detail");
+const modalOrderIdDetailEl = document.getElementById("modal-order-id-detail");
+
+function fillTableDetailFromOrder(order) {
+    modalOrderIdDetailEl.innerText = order.id;
+    paymentDetailEl.textContent = order.payment;
+    totalValueDetailEl.textContent = order.totalValue;
+
+    listOfSnacksFromOrderEl.innerText = "";
+
+    order.items.forEach(item => {
+        const rowItem = createRowSnackFromOrder(item);
+        listOfSnacksFromOrderEl.insertAdjacentHTML("afterbegin", rowItem);
+    })
+
+}
+
+btnCloseTableOrdereDetailEl.addEventListener("click", () => {
+    modalOrderDetailEl.classList.add("hidden");
+});
+
+function createRowSnackFromOrder(item) {
+
+    let { quantity, totalValue } = item;
+    const { name, value } = item.snack;
+
+    if (!totalValue) {
+        totalValue = quantity * value;
+    }
+
+    return `
+    <tr
+                class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                    ${name}
+                </th>
+                <td class="px-6 py-4">
+                    R$ ${value}
+                </td>
+                <td class="px-6 py-4">
+                    ${quantity}
+                </td>
+                <td class="px-6 py-4">
+                    R$ ${totalValue}
+                </td>
+            </tr>
+    `
 }
 
 (async () => {

@@ -8,15 +8,24 @@ async function getAllOrders() {
 }
 
 async function getAllOrdersByUser() {
-    return await fetch('http://localhost:3000/users/orders', {
+    const userAndOrder = await fetch('http://localhost:3000/users/orders', {
         method: "GET",
         headers: {
-
             "Authorization": `Bearer ${getTokenAccess()}`
         }
     })
-        .then(response => response.json())
-        .then(obj => obj.Orders);
+        .then(response => response.json());
+    return userAndOrder.order
+}
+
+async function getOrderById(id) {
+    const order = await fetch(`http://localhost:3000/orders/${id}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${getTokenAccess()}`
+        }
+    }).then(response => response.json());
+    return order;
 }
 
 async function getSnack(id) {
