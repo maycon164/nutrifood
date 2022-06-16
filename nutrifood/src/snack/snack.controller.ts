@@ -54,7 +54,10 @@ export class SnackController {
   @UseGuards(AdminGuard)
   @UseGuards(JwtAuthGuard)
   @Put('/:id')
-  async updateSnack(@Param('id') id: number, @Body() snack: SnackDTO) {
+  @UseInterceptors(FileInterceptor('file', storage))
+  async updateSnack(@Param('id') id: number, @UploadedFile() file, @Body() snack: SnackDTO) {
+
+    snack.image = `http://localhost:3000/${file.filename}`;
     const snackUpdated = await this.service.updateSnack(id, snack);
 
     if (snackUpdated) {

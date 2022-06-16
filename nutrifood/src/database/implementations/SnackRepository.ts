@@ -37,7 +37,7 @@ export class SnackRepository implements SnackRepositoryInterface {
     update(id: number, snack: SnackDTO): Promise<any> {
         return this.prisma.snack.update({
             where: { id: id },
-            data: snack
+            data: snack.toUpdate()
         })
     }
 
