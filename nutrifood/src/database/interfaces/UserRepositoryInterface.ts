@@ -8,5 +8,5 @@ export interface UserRepositoryInterface {
     insert(user: UserDTO): Promise<any>
     update(id: number, user: UserDTO): Promise<any>
     delete(id: number): void
-
+    getOrdersById(id: number): Promise<any>
 }

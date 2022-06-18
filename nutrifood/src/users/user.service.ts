@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from 'src/database/repository/UserRepository';
+import { UserRepository } from '../database/repository/UserRepository';
 import { UserDTO } from './entities/UserDTO';
 
 
@@ -12,7 +12,6 @@ export class UserService {
 
   async insertUser(user: UserDTO): Promise<null | UserDTO> {
     const userSaved = await this.userRepository.insert(user);
-
     return userSaved;
   }
 
@@ -32,8 +31,5 @@ export class UserService {
     const user = this.userRepository.findBy({ email });
     return user;
   }
-}
-function inject(arg0: string) {
-  throw new Error('Function not implemented.');
 }
 
