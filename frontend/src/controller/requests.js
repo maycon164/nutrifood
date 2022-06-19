@@ -129,4 +129,41 @@ function getIsAdmin() {
 function logout() {
     localStorage.clear();
     window.location.reload();
-} 
+}
+
+function addToCart(snack) {
+
+
+    if (verifyIfItemIsAlreadyOnTheCart(snack.id)) {
+        return { message: 'Esse Item já está no carrinho!' }
+
+    } else {
+        let cartItems = getCartItems();
+        cartItems.push(snack);
+        updateCartItems(cartItems);
+        return { message: 'Item adicionado ao carrinho!' }
+    }
+
+}
+
+function getCartItems() {
+    if (!localStorage.getItem("cartItems")) {
+        localStorage.setItem("cartItems", JSON.stringify([]));
+    }
+    return JSON.parse(localStorage.getItem("cartItems"));
+}
+
+function updateCartItems(cartItems) {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+}
+
+function verifyIfItemIsAlreadyOnTheCart(id) {
+    let cartItems = getCartItems();
+
+    if (cartItems.length == 0) {
+        return false;
+    } else {
+        let result = cartItems.filter(item => item.id == id);
+        return result[0] == undefined ? false : true;
+    }
+}  

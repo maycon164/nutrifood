@@ -1,23 +1,25 @@
 const contSnacksEl = document.getElementById("container-snacks");
 const selectCategoryEl = document.getElementById("select-category");
 
-async function fillListOfSnacks(category=""){
-    contSnacksEl.innerText = "";
-    
-    const snacks = await getAllSnacks(category);
-    snacks.forEach(snack => {
-        contSnacksEl.insertAdjacentHTML("beforeend", createSnackElement(snack));
-    });
+async function fillListOfSnacks(category = "") {
+  contSnacksEl.innerText = "";
+
+  const snacks = await getAllSnacks(category);
+  snacks.forEach(snack => {
+    contSnacksEl.insertAdjacentHTML("beforeend", createSnackElement(snack));
+  });
 }
 
 selectCategoryEl.addEventListener("change", () => {
-    const categorySelected = selectCategoryEl.value;
-    fillListOfSnacks(categorySelected)
+  const categorySelected = selectCategoryEl.value;
+  fillListOfSnacks(categorySelected)
 });
 
-function createSnackElement({id, name, category, value, image}){
-    let ratingElement = createRatingElement();
-    let snackElement =  `                
+function createSnackElement(snack) {
+  const { id, name, category, value, image } = snack;
+
+  let ratingElement = createRatingElement();
+  let snackElement = `                
         <div class="group relative">
             <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
                 <img src=${image} class="w-full h-full object-center object-cover lg:w-full lg:h-full">
@@ -39,8 +41,8 @@ function createSnackElement({id, name, category, value, image}){
             ${ratingElement}
 
             <center class="relative mt-2">
-                <button onclick="loadOrderConfirmationPage(${id})" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-3 border border-blue-500 hover:border-transparent rounded">
-                  Comprar Agora
+                <button onclick="tryToAddToCart(${id}, '${name}', ${value}, '${category}', '${image}')" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-3 border border-blue-500 hover:border-transparent rounded">
+                  Adicionar ao carrinho
                 </button>
             </center>
 
@@ -48,11 +50,26 @@ function createSnackElement({id, name, category, value, image}){
 
         `;
 
-    return snackElement;
+  return snackElement;
 }
 
-function createRatingElement(){
-    return `<ul class="flex justify-center">
+function tryToAddToCart(id, name, value, category, image) {
+  const snack = {
+    id, name, value, category, image
+  };
+
+  const result = addToCart(snack);
+  showModal({
+    title: 'ADCIONAR AO CARRINHO',
+    message: '--- * ---',
+    icon: result.message,
+    fn: () => { }
+  });
+}
+
+
+function createRatingElement() {
+  return `<ul class="flex justify-center">
     <li>
       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" class="w-4 text-yellow-500 mr-1" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
         <path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path>
@@ -81,14 +98,14 @@ function createRatingElement(){
   </ul>`
 }
 
-function realizarPedido(id){
+function realizarPedido(id) {
   alert("REALIZANDO UM NOVO PEDIDO!!!" + "do lanche com ID: " + id);
 }
 
 //auto invoked function
-(function() {
+(function () {
   fillListOfSnacks();
- }) () 
+})()
 
 
  //TODO

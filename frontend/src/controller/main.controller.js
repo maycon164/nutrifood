@@ -34,6 +34,12 @@ const pages = [
         script: "../src/controller/login.controller.js",
         loaded: false,
         section: document.getElementById("login-section")
+    },
+    {
+        html: "../src/views/cart.html",
+        script: "../src/controller/cart.controller.js",
+        loaded: false,
+        section: document.getElementById("cart-section")
     }
 ]
 
@@ -41,9 +47,11 @@ const buttonsHeader = Array.from(document.getElementsByClassName("btn"));
 const btnHomeEl = document.getElementById("btn-home");
 const btnCardapioEl = document.getElementById("btn-cardapio");
 const btnPedidosEl = document.getElementById("btn-pedidos");
+const btnCartEl = document.getElementById("btn-cart");
 const btnSnackManageEl = document.getElementById("btn-snack-manage");
 const btnLoginEl = document.getElementById("btn-login");
 const btnLogoutEl = document.getElementById("btn-logout");
+
 
 function verifyIfIsLoggedIn() {
 
@@ -80,6 +88,13 @@ btnPedidosEl.addEventListener("click", () => {
     removeSelectionOfButtons();
     btnPedidosEl.classList.add("selected")
 });
+
+btnCartEl.addEventListener("click", () => {
+    loadPage(pages[6]);
+    loadItemsOfCart();
+    removeSelectionOfButtons()
+    btnCartEl.classList.add("selected")
+})
 
 async function loadOrderConfirmationPage(id) {
     loadPage(pages[3]);
