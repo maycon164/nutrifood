@@ -1,6 +1,7 @@
 const listOfItensFromOrderEl = document.getElementById("itens-of-cart");
 const totalValueOrderEl = document.getElementById("total-value-order");
 const btnConfirmOrderEl = document.getElementById("btn-confirm-order")
+const bntCancelOrderEl = document.getElementById("btn-cancel-order");
 
 btnConfirmOrderEl.addEventListener("click", async () => {
     const items = getItemsFromOrderScreen();
@@ -14,10 +15,8 @@ btnConfirmOrderEl.addEventListener("click", async () => {
         totalValue: Number(totalValue),
         items: items,
     }
-    console.log(orderObject);
 
     const result = await makeAOrder(orderObject);
-    console.log(result);
 
     if (result) {
         showModal({
@@ -29,11 +28,14 @@ btnConfirmOrderEl.addEventListener("click", async () => {
                 loadOrders();
             }
         });
-
         listOfItensFromOrderEl.innerText = "";
         clearCart();
     }
+})
 
+bntCancelOrderEl.addEventListener('click', () => {
+    clearCart();
+    btnCardapioEl.click();
 })
 
 function getItemsFromOrderScreen() {
