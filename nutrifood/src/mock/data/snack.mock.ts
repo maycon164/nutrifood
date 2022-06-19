@@ -67,13 +67,13 @@ export default [
     value: 12.99,
     category: 'dessert',
     status: 'available',
-    image: 'http://localhost:3000/gelatinacolorida.webp',
+    image: 'http://localhost:3000/gelatina-colorida.jpeg',
   },
   {
     name: 'Salada de Frutas',
     value: 7.99,
     category: 'dessert',
     status: 'available',
-    image: 'http://localhost:3000/saladafruta.webp',
+    image: 'http://localhost:3000/salada-de-frutas.jpeg',
   }
 ];

@@ -34,7 +34,7 @@ export class OrderDTO {
 
     getItemsToSave() {
         return this.items.map(item => {
-            return { snackId: item.snack, orderId: this.id, quantity: item.quantity }
+            return { snackId: item.snack, orderId: this.id, quantity: item.quantity, totalValue: item.totalValue }
         })
     }
 }

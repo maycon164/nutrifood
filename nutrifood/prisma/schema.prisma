@@ -23,7 +23,7 @@ model user {
 
 model order {
   id         Int      @id @default(autoincrement())
-  user       user     @relation(fields: [userId], references: [id])
+  user       user     @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   userId     Int
   totalValue Decimal
   payment    String
@@ -36,8 +36,8 @@ model item {
   id         Int      @id @default(autoincrement())
   order      order    @relation(fields: [orderId], references: [id])
   orderId    Int
-  snack      snack    @relation(fields: [snackId], references: [id])
-  snackId    Int
+  snack      snack?   @relation(fields: [snackId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  snackId    Int?
   quantity   Int
   totalValue Decimal?
 }
