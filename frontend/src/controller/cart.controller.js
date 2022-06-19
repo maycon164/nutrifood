@@ -18,9 +18,20 @@ btnConfirmOrderEl.addEventListener("click", async () => {
 
     const result = await makeAOrder(orderObject);
     console.log(result);
+
     if (result) {
-        alert("Pedido Feito")
+        showModal({
+            title: "Lanche: Nome do Lanche",
+            message: "Agora é só esperar o seu lanche chegar",
+            icon: "🛵",
+            fn: () => {
+                btnPedidosEl.click();
+                loadOrders();
+            }
+        });
+
         listOfItensFromOrderEl.innerText = "";
+        clearCart();
     }
 
 })

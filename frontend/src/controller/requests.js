@@ -60,7 +60,7 @@ async function makeAOrder(orderObject) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(orderObject)
-    })
+    }).then(obj => obj.json());
 }
 
 async function deleteSnack(id) {
@@ -155,6 +155,10 @@ function getCartItems() {
 
 function updateCartItems(cartItems) {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
+}
+
+function clearCart() {
+    localStorage.removeItem("cartItems");
 }
 
 function verifyIfItemIsAlreadyOnTheCart(id) {
