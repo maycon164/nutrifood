@@ -125,7 +125,18 @@ function createRowItemOfOrder(snack) {
             <td class="px-6 py-4 total-value-item" id="total-value-id-${id}", data-value=${value}>
                 R$ ${value}
             </td>
+
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                <button onclick='removeCartItem(${id})'>Remover</button> 
+            </th>
+            
         </tr>`
+}
+
+function removeCartItem(id) {
+
+    removeSnackFromCart(id);
+    loadItemsOfCart();
 }
 
 (() => {

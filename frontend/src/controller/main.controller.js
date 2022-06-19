@@ -62,7 +62,8 @@ function verifyIfIsLoggedIn() {
         p.textContent = `Logado como ${getUsername()}`
         btnLoginEl.replaceWith(p);
 
-        console.log(getIsAdmin());
+        btnCartEl.classList.remove("hidden");
+        btnPedidosEl.classList.remove("hidden")
 
         if (getIsAdmin()) {
             btnSnackManageEl.classList.remove("hidden")

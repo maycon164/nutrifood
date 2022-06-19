@@ -11,7 +11,12 @@ async function loadOrders() {
 
 
 function createOrderView({ id, totalValue, payment, createdAt, items }) {
-    const itemsNames = items.map(item => item.snack.name);
+    const itemsNames = items.map(item => {
+        if (item.snack) {
+            return item.snack.name;
+        }
+        return '[null],'
+    });
 
     return `
     <li>

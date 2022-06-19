@@ -146,6 +146,12 @@ function addToCart(snack) {
 
 }
 
+function removeSnackFromCart(id) {
+    const cartItems = getCartItems();
+    const cartItemsFiltered = cartItems.filter(item => item.id != id);
+    updateCartItems(cartItemsFiltered);
+}
+
 function getCartItems() {
     if (!localStorage.getItem("cartItems")) {
         localStorage.setItem("cartItems", JSON.stringify([]));
