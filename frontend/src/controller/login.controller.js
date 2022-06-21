@@ -8,6 +8,8 @@ const btnShowLoginContainerEl = document.getElementById("btn-show-login-containe
 const signUpContainerEl = document.getElementById("sign-up-container");
 const loginContainerEl = document.getElementById("login-container");
 
+const btnMakeRegisterEl = document.getElementById("btn-make-register");
+
 btnMakeLoginEl.addEventListener("click", async () => {
 
     const email = emailEl.value;
@@ -51,4 +53,28 @@ btnSignUpEl.addEventListener("click", () => {
 btnShowLoginContainerEl.addEventListener("click", () => {
     signUpContainerEl.classList.add("hidden");
     loginContainerEl.classList.remove("hidden");
+})
+
+btnMakeRegisterEl.addEventListener("click", async () => {
+    const name = document.getElementById("sign-name").value;
+    const email = document.getElementById("sign-email").value;
+    const password = document.getElementById("sign-password").value;
+    const address = document.getElementById("sign-address").value;
+    const num = document.getElementById("sign-num").value;
+
+    const objRegister = {
+        name, email, password, address, num
+    }
+
+    const result = await makeRegister(objRegister);
+
+    if (result) {
+        showModal({
+            title: 'Make Register',
+            message: '---*----',
+            icon: result,
+            fn: () => { }
+        })
+        btnShowLoginContainerEl.click();
+    }
 })

@@ -46,6 +46,21 @@ async function getSnack(id) {
     return await fetch(`http://localhost:3000/snacks/snack/${id}`).then(response => response.json());
 }
 
+async function makeRegister(objRegister) {
+    const objResponse = await fetch('http://localhost:3000/users/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(objRegister)
+    })
+        .then(response => response.json());
+
+    console.log(objResponse);
+    return objResponse.message;
+}
+
 async function makeLogin(loginObject) {
     const objResponse = await fetch(`http://localhost:3000/auth/login`, {
         method: 'POST',
