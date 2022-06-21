@@ -1,16 +1,17 @@
 const listOfOrdersEl = document.getElementById("list-of-orders")
 
 async function loadOrders() {
-    const orders = await getAllOrdersByUser();
+    const { order: orders, address, num } = await getAllOrdersByUser();
     listOfOrdersEl.innerText = "";
+
     orders.forEach(order => {
-        const orderElement = createOrderView(order);
+        const orderElement = createOrderView(order, address, num);
         listOfOrdersEl.insertAdjacentHTML("afterbegin", orderElement);
     });
 }
 
 
-function createOrderView({ id, totalValue, payment, createdAt, items }) {
+function createOrderView({ id, totalValue, payment, createdAt, items }, address, num) {
     const itemsNames = items.map(item => {
         if (item.snack) {
             return item.snack.name;
@@ -50,7 +51,7 @@ function createOrderView({ id, totalValue, payment, createdAt, items }) {
                 <p class="text-gray-700">PAGO VIA <strong>${payment}</strong></p>
                 
                 <p class="text-gray-700 mb-6">
-                    ENTREGUE: PARA O ENDERECO E NUM DA CASA
+                    ENDEREÇO: ${address}, NUM: ${num} 
                 </p>
                 
                 <button onclick="seeMoreDatails(${id})" type="button" class="inline-block px-4 py-1.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true">VER MAIS DETALHES</button>

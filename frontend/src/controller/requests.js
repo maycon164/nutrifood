@@ -15,7 +15,11 @@ async function getAllOrdersByUser() {
         }
     })
         .then(response => response.json());
-    return userAndOrder.order
+
+
+    console.log(userAndOrder);
+
+    return { order, address, num } = userAndOrder
 }
 
 async function getOrderById(id) {

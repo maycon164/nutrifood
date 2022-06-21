@@ -2,6 +2,12 @@ const emailEl = document.getElementById("email");
 const passwordEl = document.getElementById("password");
 const btnMakeLoginEl = document.getElementById("btn-make-login");
 
+const btnSignUpEl = document.getElementById("btn-sign-up");
+const btnShowLoginContainerEl = document.getElementById("btn-show-login-container");
+
+const signUpContainerEl = document.getElementById("sign-up-container");
+const loginContainerEl = document.getElementById("login-container");
+
 btnMakeLoginEl.addEventListener("click", async () => {
 
     const email = emailEl.value;
@@ -35,5 +41,14 @@ btnMakeLoginEl.addEventListener("click", async () => {
         }
 
     }
+})
 
+btnSignUpEl.addEventListener("click", () => {
+    loginContainerEl.classList.add("hidden");
+    signUpContainerEl.classList.remove("hidden");
+})
+
+btnShowLoginContainerEl.addEventListener("click", () => {
+    signUpContainerEl.classList.add("hidden");
+    loginContainerEl.classList.remove("hidden");
 })
