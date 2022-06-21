@@ -88,7 +88,12 @@ export class SnackController {
   insertSnack(@UploadedFile() file, @Body() snack: SnackDTO) {
 
     const snackData = snack;
-    snackData.image = `http://localhost:3000/${file.filename}`;
+    let imgSrc = 'http://localhost:3000/no-available.png'
+    if (file) {
+      imgSrc = `http://localhost:3000/${file.filename}`;
+    }
+    snackData.image = imgSrc;
+
     const snackInserted = this.service.insertSnack(snackData);
     if (snackInserted) {
       return { message: "sucessfully inserted" }

@@ -63,7 +63,12 @@ function loadItemsOfCart() {
     console.log(`total value ${totalValue}`);
 
     if (snacks.length == 0) {
-        alert("voce nao tem nemhum item no seu carrinho!!!");
+        showModal({
+            title: 'Seu Carrinho',
+            message: '',
+            icon: 'Voce nao tem nemhum item no seu carrinho',
+            fn: () => { }
+        })
     }
 
     listOfItensFromOrderEl.innerText = "";
