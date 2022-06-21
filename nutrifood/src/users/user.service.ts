@@ -31,5 +31,9 @@ export class UserService {
     const user = this.userRepository.findBy({ email });
     return user;
   }
+
+  async getReport() {
+    return this.userRepository.getReport();
+  }
 }
 

@@ -48,4 +48,19 @@ export class UserRepository implements UserRepositoryInterface {
         throw new Error("Method not implemented.");
     }
 
+    async getReport() {
+
+        const report = await this.prisma.$queryRaw`  SELECT s.name, s.value,
+        SUM(i.quantity) AS quantidade,
+        (SUM(i.quantity) * s.value) AS valorGerado
+        FROM snack AS s,
+        item AS i
+        WHERE s.id = i."snackId"
+        GROUP BY s.name, s.value
+        ORDER BY valorGerado DESC`;
+
+        console.log(report);
+        return report;
+    }
+
 }

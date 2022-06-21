@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards, Request, UnauthorizedException, ValidationPipe, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards, Request, UnauthorizedException, ValidationPipe, UsePipes, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UserDTO } from './entities/UserDTO';
@@ -28,10 +28,15 @@ export class UserController {
     }
   }
 
-  @UsePipes(ValidationPipe)
   @Post()
   async insertUser(@Body() user: UserDTO) {
     return this.service.insertUser(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/report')
+  async getGeneralReport(@Request() req) {
+    return this.service.getReport();
   }
 
 }
