@@ -208,6 +208,50 @@ function showUpdateSnackSection() {
     tableSnacksSection.classList.add("hidden");
 }
 
+const modalReportEl = document.getElementById("modal-report");
+const btnShowModalReportEl = document.getElementById("show-report")
+const listOfSnacksFromReport = document.getElementById('list-of-snack-from-report');
+const btnCloseModalReport = document.getElementById("btn-close-modal-report");
+
+btnShowModalReportEl.addEventListener('click', async () => {
+    modalReportEl.classList.remove('hidden');
+    listOfSnacksFromReport.innerText = '';
+    const snacksReport = await getReport();
+
+    snacksReport.forEach(snack => {
+
+        const snackReportRow = createRowReport(snack);
+        listOfSnacksFromReport.insertAdjacentHTML('beforeend', snackReportRow);
+
+    })
+
+})
+
+btnCloseModalReport.addEventListener('click', () => {
+    modalReportEl.classList.add('hidden');
+})
+
+function createRowReport(snackReport) {
+    const { name, value, quantidade, valorgerado } = snackReport;
+    return `
+    <tr
+        class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+            ${name}
+        </th>
+        <td class="px-6 py-4">
+            R$ ${value.toFixed(2)}
+        </td>
+        <td class="px-6 py-4">
+            ${quantidade}
+        </td>
+        <td class="px-6 py-4">
+            R$ ${valorgerado.toFixed(2)}
+        </td>
+    </tr>
+    `
+}
+
 (() => {
     fillTableSnackManage();
 })()

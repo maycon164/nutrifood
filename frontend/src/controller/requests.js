@@ -28,6 +28,16 @@ async function getOrderById(id) {
     return order;
 }
 
+async function getReport() {
+    const report = await fetch(`http://localhost:3000/users/report`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${getTokenAccess()}`
+        }
+    }).then(response => response.json());
+    return report;
+}
+
 async function getSnack(id) {
     return await fetch(`http://localhost:3000/snacks/snack/${id}`).then(response => response.json());
 }

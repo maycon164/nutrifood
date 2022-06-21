@@ -10,6 +10,11 @@
             INSERT A NEW SNACK
         </button>
 
+        <button id="show-report" type="button"
+            class="inline-block my-2.5 px-4 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+            SHOW REPORT
+        </button>
+
     </div>
 
     <div class="w-1/2" style="margin: 0 auto;">
@@ -230,3 +235,43 @@
         </form>
     </center>
 </section>
+
+<div id="modal-report"
+    class="hidden modal-table-order-details overflow-x-auto  sm:rounded-lg fade w-2/3 outline-none overflow-x-hidden overflow-y-auto">
+    <h2 class="text-2xl text-center font-extrabold tracking-tight text-indigo-600">
+        Report: Os lanches mais vendidos
+    </h2>
+
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-order-details">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Nome
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Preco
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    quantidade
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    valor gerado
+                </th>
+            </tr>
+        </thead>
+        <tbody id="list-of-snack-from-report">
+
+
+
+        </tbody>
+
+    </table>
+
+
+    <button id="btn-close-modal-report" style="display: block; margin:10px auto" id="btn-close-order-details"
+        type="button"
+        class="inline-block my-2.5 px-4 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+        Fechar
+    </button>
+
+</div>
