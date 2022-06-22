@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { HttpCode, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { check } from 'prettier';
 import { UserRepository } from '../database/repository/UserRepository';
 import { UserDTO } from './entities/UserDTO';
 
@@ -11,6 +12,12 @@ export class UserService {
   }
 
   async insertUser(user: UserDTO): Promise<null | UserDTO> {
+    const checkEmail = await this.findOneByEmail(user.email);
+
+    if (checkEmail) {
+      throw new HttpException('Essa email ja esta cadastrado', HttpStatus.CONFLICT);
+    }
+
     const userSaved = await this.userRepository.insert(user);
     return userSaved;
   }

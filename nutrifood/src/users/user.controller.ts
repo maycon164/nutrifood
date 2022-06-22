@@ -30,7 +30,19 @@ export class UserController {
 
   @Post()
   async insertUser(@Body() user: UserDTO) {
-    return this.service.insertUser(user);
+
+    try {
+      await this.service.insertUser(user);
+      return {
+        message: 'Cadastrado com sucesso'
+      };
+    } catch (error) {
+      return {
+        message: error.message
+      }
+    }
+
+
   }
 
   @UseGuards(JwtAuthGuard)
