@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  app:
+    build: .
+    container_name: nutrifood
+    depends_on:
+      - db
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - .:/usr/app
+    command: sh ./entrypoint.sh
+
+  db:
+    container_name: nutri-db
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=9090

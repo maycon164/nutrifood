@@ -8,7 +8,6 @@
         "**/Thumbs.db": true,
         "node_modules": true,
         "dist": true,
-        "test": true,
         "package-lock.json": true
     }
 }
