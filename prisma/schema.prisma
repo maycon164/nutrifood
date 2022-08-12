@@ -59,6 +59,7 @@ model snack {
   value       Decimal
   category    String
   image       String?
+  imageId     String?
   status      String
   item        item[]
 }

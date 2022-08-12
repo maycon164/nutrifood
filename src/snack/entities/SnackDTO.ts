@@ -24,6 +24,9 @@ export class SnackDTO {
     @ApiProperty()
     image: string
 
+    @IsOptional()
+    imageId: string
+
     @IsString()
     @ApiProperty()
     category: string
@@ -32,13 +35,15 @@ export class SnackDTO {
     @ApiProperty()
     status: string
 
+
     toUpdate() {
         return {
             name: this.name,
             category: this.category,
             status: this.status,
             value: this.value,
-            image: this.image
+            image: this.image,
+            imageId: this.imageId
         }
     }
 }

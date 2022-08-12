@@ -19,14 +19,12 @@ import { SnackDTO } from './entities/SnackDTO';
 import { SnackService } from './snack.service';
 
 const storage = {
-  storage: diskStorage({
-    destination: './images',
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      cb(null, uniqueSuffix + '-' + file.originalname);
-    },
-  }),
-};
+  storage: diskStorage({}),
+  fileFilter: (req, file, cb) => {
+    cb(null, true);
+    return;
+  }
+}
 
 @Controller('snacks')
 @ApiTags('snacks')
@@ -57,11 +55,7 @@ export class SnackController {
   @UseInterceptors(FileInterceptor('file', storage))
   async updateSnack(@Param('id') id: number, @UploadedFile() file, @Body() snack: SnackDTO) {
 
-    if (file) {
-      snack.image = `http://localhost:3000/${file.filename}`;
-    }
-
-    const snackUpdated = await this.service.updateSnack(id, snack);
+    const snackUpdated = await this.service.updateSnack(id, snack, file);
 
     if (snackUpdated) {
       return { message: 'successfully updated' };
@@ -87,17 +81,12 @@ export class SnackController {
   @UseInterceptors(FileInterceptor('file', storage))
   insertSnack(@UploadedFile() file, @Body() snack: SnackDTO) {
 
-    const snackData = snack;
-    let imgSrc = 'http://localhost:3000/no-available.png'
-    if (file) {
-      imgSrc = `http://localhost:3000/${file.filename}`;
-    }
-    snackData.image = imgSrc;
+    const snackInserted = this.service.insertSnack(snack, file);
 
-    const snackInserted = this.service.insertSnack(snackData);
     if (snackInserted) {
       return { message: "sucessfully inserted" }
     }
+
   }
 
 }

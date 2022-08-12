@@ -1,20 +1,27 @@
 import { Injectable } from '@nestjs/common';
+import { CloudinaryService } from 'src/services/images/cloudinary.service';
 import { SnackRepository } from '../database/repository/SnackRepository';
 import { SnackDTO } from './entities/SnackDTO';
 
 @Injectable()
 export class SnackService {
   constructor(
-    private readonly snackRepository: SnackRepository
+    private readonly snackRepository: SnackRepository,
+    private readonly cloudinaryService: CloudinaryService,
   ) { }
 
-  async insertSnack(snack: SnackDTO) {
-    const snackSaved = await this.snackRepository.insert(snack);
+  async insertSnack(snack: SnackDTO, file: Express.Multer.File) {
+
+    const snackSaved = await this.snackRepository.insert(snack, file);
     return snackSaved;
+
   }
 
-  async updateSnack(id: number, snack: SnackDTO) {
+  async updateSnack(id: number, snack: SnackDTO, file?: Express.Multer.File) {
+    if (file) return this.snackRepository.update(id, snack, file);
     return this.snackRepository.update(id, snack);
+
+
   }
 
   async getSnacksByCategory(category: string) {

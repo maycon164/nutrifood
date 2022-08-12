@@ -1,83 +1,79 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-const PORT = process.env.PORT;
-
 export default [
   {
     name: `Hamburguer`,
     value: 12.99,
     category: `fastfood`,
     status: `available`,
-    image: `http://localhost:${PORT}/food.jpeg`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326746/food_iwfesu.jpg`,
   },
   {
     name: `Bolo`,
     value: 15.99,
     category: `dessert`,
     status: `available`,
-    image: `http://localhost:${PORT}/bolo.jpeg`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326745/bolo_nszblr.jpg`,
   },
   {
     name: `Hot Dog`,
     value: 10.99,
     category: `fastfood`,
     status: `available`,
-    image: `http://localhost:${PORT}/hotdog.jpeg`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326746/hotdog_lou48t.jpg`,
   },
   {
     name: `Milkshake`,
     value: 9.99,
     category: `dessert`,
     status: `available`,
-    image: `http://localhost:${PORT}/milkshake.jpeg`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326746/milkshake_d9xyq8.jpg`,
   },
   {
     name: `Torta de Morango`,
     value: 22.99,
     category: `dessert`,
     status: `available`,
-    image: `http://localhost:${PORT}/torta.jpeg`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326746/torta_la7w7e.jpg`,
   },
   {
     name: `Sorvete 4 bolas`,
     value: 12.69,
     category: `dessert`,
     status: `available`,
-    image: `http://localhost:${PORT}/sorvete.jpeg`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326746/sorvete_oh6ggu.jpg`,
   },
   {
     name: `Trancoso, do G&T Bar`,
     value: 6.69,
     category: `drinks`,
     status: `available`,
-    image: `http://localhost:${PORT}/trancoso.webp`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326747/trancoso_jjvjtq.webp`,
   },
   {
     name: `Santa Rosa Tavares`,
     value: 9.69,
     category: `drinks`,
     status: `available`,
-    image: `http://localhost:${PORT}/rosatavares.webp`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326746/rosatavares_h1emzz.webp`,
   },
   {
     name: `Salada Mista`,
     value: 11.69,
     category: `salads`,
     status: `available`,
-    image: `http://localhost:${PORT}/saladamista.jpeg`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326747/saladamista_iksheh.jpg`,
   },
   {
     name: `Gelatina Colorida`,
     value: 12.99,
     category: `dessert`,
     status: `available`,
-    image: `http://localhost:${PORT}/gelatina-colorida.jpeg`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326745/gelatina-colorida_cqu8ax.jpg`,
   },
   {
     name: `Salada de Frutas`,
     value: 7.99,
     category: `dessert`,
     status: `available`,
-    image: `http://localhost:${PORT}/salada-de-frutas.jpeg`,
+    image: `https://res.cloudinary.com/drprqitgl/image/upload/v1660326746/salada-de-frutas_xay3im.jpg`,
   }
 ];
