@@ -5,6 +5,8 @@ import { UserModule } from './users/user.module';
 import { OrderModule } from './orders/order.module';
 import { ConfigModule } from '@nestjs/config';
 import { RepositoryModule } from './database/repository/repository.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { HandlePrismaExceptions } from './common/interceptors/HandlePrismaExceptions.interceptor';
 
 @Module({
   imports: [
@@ -18,6 +20,10 @@ import { RepositoryModule } from './database/repository/repository.module';
   ],
   controllers: [],
   providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: HandlePrismaExceptions
+    }
   ],
 })
 
