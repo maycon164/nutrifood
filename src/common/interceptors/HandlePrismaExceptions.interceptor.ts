@@ -10,7 +10,7 @@ export class HandlePrismaExceptions implements NestInterceptor {
             .handle()
             .pipe(
                 catchError(err => {
-                    let overrideException: Error = null;
+                    let overrideException: Error = err;
                     // Todo: Make Logic to override exceptions from Prisma
                     if (err instanceof Prisma.PrismaClientKnownRequestError) {
                         if (err.code == 'P2003') {
@@ -18,6 +18,7 @@ export class HandlePrismaExceptions implements NestInterceptor {
                             overrideException = new BadRequestException(`Invalid ${fieldName}`)
                         }
                     }
+
                     return throwError(() => overrideException)
                 })
             )

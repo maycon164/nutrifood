@@ -5,8 +5,9 @@ import { UserModule } from './users/user.module';
 import { OrderModule } from './orders/order.module';
 import { ConfigModule } from '@nestjs/config';
 import { RepositoryModule } from './database/repository/repository.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HandlePrismaExceptions } from './common/interceptors/HandlePrismaExceptions.interceptor';
+import { NonHttpExceptionFilter } from './common/exceptions/ExceptionsFilter.filter';
 
 @Module({
   imports: [
@@ -20,6 +21,10 @@ import { HandlePrismaExceptions } from './common/interceptors/HandlePrismaExcept
   ],
   controllers: [],
   providers: [
+    {
+      provide: APP_FILTER,
+      useClass: NonHttpExceptionFilter
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: HandlePrismaExceptions
