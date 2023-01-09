@@ -1,23 +1,33 @@
 version: "3.7"
-
 services:
   app:
-    build: .
     container_name: nutri-back
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
     depends_on:
       - db
-    ports:
-      - ${PORT}:${PORT}
-    volumes:
-      - .:/usr/app
-    command: sh -c "npx prisma migrate dev && npm run start"
-  db:
-    container_name: nutri-db
-    image: postgres
-    restart: always
     environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:9090@db:5432/nutrifood?schema=public
+      JWT_KEY: secret
+      CLOUDINARY_NAME: seu_cloudinary_name
+      CLOUDINARY_KEY: seu_codigo
+      CLOUDINARY_SECRET: seu_secret
+
+  db:
+    image: postgres:14
+    container_name: postgresdb
+    ports:
+      - 9090:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 9090
+      POSTGRES_DATABASE: nutrifood
     volumes:
-      - ./postgres-data:/var/lib/postgressql/data
-      - ./data/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./dump/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+volumes:
+  postgres:
+    name: nest-db
